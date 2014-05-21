@@ -1,0 +1,1394 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+                  xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://epicor.com/webservices/"
+                  xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:s1="http://epicor.com/ice/1/2"
+                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/"
+                  xmlns:http="http://schemas.xmlsoap.org/wsdl/http/"
+                  xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+                  targetNamespace="http://epicor.com/webservices/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://epicor.com/webservices/">
+      <s:element name="GetResourceMonthlyCalendar">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="organizationID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="xmlResourceListDoc" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="beginDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="MonthsDuration" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="FlagFilter" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="FlagPlanned" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="FlagTentative" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="FlagConfirmed" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="FlagPlanner" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetResourceMonthlyCalendarResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="xmlMonthlyCalendarDoc">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetResourceDailyCalendar">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="xmlResourceListDoc" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="beginDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="MonthsDuration" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="FlagFilter" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="FlagPlanned" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="FlagTentative" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="FlagConfirmed" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="FlagPlanner" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetResourceDailyCalendarResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="xmlDailyCalendarDoc">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOrganizationUnitListForCompany">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="companyURN" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOrganizationUnitListForCompanyResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetOrganizationUnitListForCompanyResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOrganizationUnitTreeForSitePickList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="siteURN" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pOutlineNum" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOrganizationUnitTreeForSitePickListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetOrganizationUnitTreeForSitePickListResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProjectForEmployee">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="resourceID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="treeType" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProjectForEmployeeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetProjectForEmployeeResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProjectEmployeeForPDA">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="resourceID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProjectEmployeeForPDAResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetProjectEmployeeForPDAResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProjectPlannerDataForTask">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="projectCode" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="revisionNum" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="taskUID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="dailyWeeklyCode" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="requestedStartDate" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="projectCurrencyCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="includeChildren" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="plannedItemTypeCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="outlineNum" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="scrollForwardBackward" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProjectPlannerDataForTaskResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetProjectPlannerDataForTaskResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateResourcePlanner">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="projectCode" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="revisionNum" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="projectDoc" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="taskList" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="xmlProjectPlannerEntryDoc" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="xmlResourcesInfo" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="recurringHoursFlag" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="ReqApprovalFlag" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="dlgRecHrsStartDate" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="dlgRecHrsEndDate" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateResourcePlannerResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateResourcePlannerResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ChangeProjectPlannerEntryView">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="projectCode" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="revisionNum" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="taskUID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="newDailyWeeklyCode" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="startDate" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="scrollForwardBackward" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="projectCurrencyCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="xmlProjectPlannerEntryDoc" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="includeChildren" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="plannedItemTypeCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="outlineNum" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="xmlResourcesInfo" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="ReqApprovalFlag" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ChangeProjectPlannerEntryViewResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ChangeProjectPlannerEntryViewResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+            <s:element minOccurs="0" maxOccurs="1" name="excessWarningStr" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProjectPlannerCostRevenue">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="projectCode" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="revisionNum" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="taskUID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="projectCurrencyCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProjectPlannerCostRevenueResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetProjectPlannerCostRevenueResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateCreditForm">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CreditDoc" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="NewFlag" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="taxDoc" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GetTimeEntryByID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GetExpenseEntryByID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="materialDetailShipDoc" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="billScheduleDoc" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateCreditFormResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="UpdateBillingForm">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BillingDoc" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TaxDoc" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GetTimeEntryByID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="GetExpenseEntryByID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="MaterialDetailShipDoc" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="BillScheduleDoc1" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="BillScheduleDoc2" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateBillingFormResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="xmlExceedBillingCap">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RoundValue">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="amount" type="s:decimal" />
+            <s:element minOccurs="0" maxOccurs="1" name="roundType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="currency" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RoundValueResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="RoundValueResult" type="s:decimal" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProjectTeam">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ProjectCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="RevisionNum" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetProjectTeamResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetProjectTeamResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTeamListForSite">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="siteURN" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTeamListForSiteResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetTeamListForSiteResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ClientHelperGetProjectTree">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ProjectTreeCriteriaDoc" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ClientHelperGetProjectTreeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ClientHelperGetProjectTreeResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetNavigator">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="criteriaDoc" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetNavigatorResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetNavigatorResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ApproveAndEngageProject">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="projectCode" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="revisionNum" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ApproveAndEngageProjectResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ApproveAndEngageProjectResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateRecurringHours">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="xmlCreateCriteria" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="xmlDatesAndHours" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateRecurringHoursResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateRecurringHoursResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateRecurringExpenses">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="xmlCreateCriteria" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="xmlDatesAndAmount" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateRecurringExpensesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UpdateRecurringExpensesResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetArtifactDocumentList">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sArtifact" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetArtifactDocumentListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetArtifactDocumentListResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://epicor.com/ice/1/2">
+      <s:element name="ICERequestHeader" type="s1:ICERequestHeader" />
+      <s:complexType name="ICERequestHeader">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ccmRequest" type="s1:CCMRequest" />
+          <s:element minOccurs="1" maxOccurs="1" name="hlRequest" type="s1:HoldListRequest" />
+          <s:element minOccurs="0" maxOccurs="1" name="tipUrl" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="remoteSessionKey" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="authorizationToken" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ccmSessionID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="userInfo" type="s1:OriginalUserInfo" />
+        </s:sequence>
+        <s:anyAttribute />
+      </s:complexType>
+      <s:complexType name="CCMRequest">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ccmOperation" type="s1:CCMOperation" />
+          <s:element minOccurs="0" maxOccurs="1" name="artifact" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="CCMOperation">
+        <s:restriction base="s:string">
+          <s:enumeration value="NoOperation" />
+          <s:enumeration value="Claim" />
+          <s:enumeration value="Release" />
+          <s:enumeration value="ReleaseAll" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="HoldListRequest">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="hlRequestType" type="s1:HoldListRequestType" />
+          <s:element minOccurs="0" maxOccurs="1" name="artifact" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="HoldListRequestType">
+        <s:restriction base="s:string">
+          <s:enumeration value="NoHoldListRequest" />
+          <s:enumeration value="GetHoldList" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="OriginalUserInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="securityManagerURL" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="userID" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ICEResponseHeader" type="s1:ICEResponseHeader" />
+      <s:complexType name="ICEResponseHeader">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ccmReply" type="s1:CCMReply" />
+          <s:element minOccurs="0" maxOccurs="1" name="ccmSessionID" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="HoldList" type="s1:HoldListReply" />
+          <s:element minOccurs="1" maxOccurs="1" name="AttachmentList" type="s1:AttachmentListReply" />
+        </s:sequence>
+        <s:anyAttribute />
+      </s:complexType>
+      <s:complexType name="CCMReply">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ccmStatus" type="s1:CCMArtifactStatus" />
+          <s:element minOccurs="0" maxOccurs="1" name="ccmMessage" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="CCMArtifactStatus">
+        <s:restriction base="s:string">
+          <s:enumeration value="Unclaimed" />
+          <s:enumeration value="ClaimedByThisSession" />
+          <s:enumeration value="ClaimedByAnotherSession" />
+          <s:enumeration value="Error" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="HoldListReply">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Artifact" type="s1:HeldEvent" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="HeldEvent">
+        <s:attribute name="inhibitedArtifactName" type="s:string" />
+        <s:attribute name="inhibitedArtifactValue" type="s:string" />
+        <s:attribute name="inhibitedEventName" type="s:string" />
+        <s:attribute name="inhibitingHoldClass" type="s:string" />
+        <s:attribute name="inhibitingArtifactName" type="s:string" />
+        <s:attribute name="inhibitingArtifactValue" type="s:string" />
+      </s:complexType>
+      <s:complexType name="AttachmentListReply">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Artifact" type="s1:Artifact" />
+        </s:sequence>
+        <s:attribute name="ClientQueryString" type="s:string" />
+      </s:complexType>
+      <s:complexType name="Artifact">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ArtifactValue" type="s1:artifactValue" />
+        </s:sequence>
+        <s:attribute name="artifactName" type="s:string" />
+        <s:attribute name="artifactNode" type="s:string" />
+      </s:complexType>
+      <s:complexType name="artifactValue">
+        <s:attribute name="value" type="s:string" />
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetResourceMonthlyCalendarSoapIn">
+    <wsdl:part name="parameters" element="tns:GetResourceMonthlyCalendar" />
+  </wsdl:message>
+  <wsdl:message name="GetResourceMonthlyCalendarSoapOut">
+    <wsdl:part name="parameters" element="tns:GetResourceMonthlyCalendarResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetResourceMonthlyCalendarICERequestHeader">
+    <wsdl:part name="ICERequestHeader" element="s1:ICERequestHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetResourceMonthlyCalendarICEResponseHeader">
+    <wsdl:part name="ICEResponseHeader" element="s1:ICEResponseHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetResourceDailyCalendarSoapIn">
+    <wsdl:part name="parameters" element="tns:GetResourceDailyCalendar" />
+  </wsdl:message>
+  <wsdl:message name="GetResourceDailyCalendarSoapOut">
+    <wsdl:part name="parameters" element="tns:GetResourceDailyCalendarResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetResourceDailyCalendarICERequestHeader">
+    <wsdl:part name="ICERequestHeader" element="s1:ICERequestHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetResourceDailyCalendarICEResponseHeader">
+    <wsdl:part name="ICEResponseHeader" element="s1:ICEResponseHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetOrganizationUnitListForCompanySoapIn">
+    <wsdl:part name="parameters" element="tns:GetOrganizationUnitListForCompany" />
+  </wsdl:message>
+  <wsdl:message name="GetOrganizationUnitListForCompanySoapOut">
+    <wsdl:part name="parameters" element="tns:GetOrganizationUnitListForCompanyResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetOrganizationUnitListForCompanyICERequestHeader">
+    <wsdl:part name="ICERequestHeader" element="s1:ICERequestHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetOrganizationUnitListForCompanyICEResponseHeader">
+    <wsdl:part name="ICEResponseHeader" element="s1:ICEResponseHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetOrganizationUnitTreeForSitePickListSoapIn">
+    <wsdl:part name="parameters" element="tns:GetOrganizationUnitTreeForSitePickList" />
+  </wsdl:message>
+  <wsdl:message name="GetOrganizationUnitTreeForSitePickListSoapOut">
+    <wsdl:part name="parameters" element="tns:GetOrganizationUnitTreeForSitePickListResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetOrganizationUnitTreeForSitePickListICERequestHeader">
+    <wsdl:part name="ICERequestHeader" element="s1:ICERequestHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetOrganizationUnitTreeForSitePickListICEResponseHeader">
+    <wsdl:part name="ICEResponseHeader" element="s1:ICEResponseHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetProjectForEmployeeSoapIn">
+    <wsdl:part name="parameters" element="tns:GetProjectForEmployee" />
+  </wsdl:message>
+  <wsdl:message name="GetProjectForEmployeeSoapOut">
+    <wsdl:part name="parameters" element="tns:GetProjectForEmployeeResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetProjectForEmployeeICERequestHeader">
+    <wsdl:part name="ICERequestHeader" element="s1:ICERequestHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetProjectForEmployeeICEResponseHeader">
+    <wsdl:part name="ICEResponseHeader" element="s1:ICEResponseHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetProjectEmployeeForPDASoapIn">
+    <wsdl:part name="parameters" element="tns:GetProjectEmployeeForPDA" />
+  </wsdl:message>
+  <wsdl:message name="GetProjectEmployeeForPDASoapOut">
+    <wsdl:part name="parameters" element="tns:GetProjectEmployeeForPDAResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetProjectEmployeeForPDAICERequestHeader">
+    <wsdl:part name="ICERequestHeader" element="s1:ICERequestHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetProjectEmployeeForPDAICEResponseHeader">
+    <wsdl:part name="ICEResponseHeader" element="s1:ICEResponseHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetProjectPlannerDataForTaskSoapIn">
+    <wsdl:part name="parameters" element="tns:GetProjectPlannerDataForTask" />
+  </wsdl:message>
+  <wsdl:message name="GetProjectPlannerDataForTaskSoapOut">
+    <wsdl:part name="parameters" element="tns:GetProjectPlannerDataForTaskResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetProjectPlannerDataForTaskICERequestHeader">
+    <wsdl:part name="ICERequestHeader" element="s1:ICERequestHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetProjectPlannerDataForTaskICEResponseHeader">
+    <wsdl:part name="ICEResponseHeader" element="s1:ICEResponseHeader" />
+  </wsdl:message>
+  <wsdl:message name="UpdateResourcePlannerSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateResourcePlanner" />
+  </wsdl:message>
+  <wsdl:message name="UpdateResourcePlannerSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateResourcePlannerResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateResourcePlannerICERequestHeader">
+    <wsdl:part name="ICERequestHeader" element="s1:ICERequestHeader" />
+  </wsdl:message>
+  <wsdl:message name="UpdateResourcePlannerICEResponseHeader">
+    <wsdl:part name="ICEResponseHeader" element="s1:ICEResponseHeader" />
+  </wsdl:message>
+  <wsdl:message name="ChangeProjectPlannerEntryViewSoapIn">
+    <wsdl:part name="parameters" element="tns:ChangeProjectPlannerEntryView" />
+  </wsdl:message>
+  <wsdl:message name="ChangeProjectPlannerEntryViewSoapOut">
+    <wsdl:part name="parameters" element="tns:ChangeProjectPlannerEntryViewResponse" />
+  </wsdl:message>
+  <wsdl:message name="ChangeProjectPlannerEntryViewICERequestHeader">
+    <wsdl:part name="ICERequestHeader" element="s1:ICERequestHeader" />
+  </wsdl:message>
+  <wsdl:message name="ChangeProjectPlannerEntryViewICEResponseHeader">
+    <wsdl:part name="ICEResponseHeader" element="s1:ICEResponseHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetProjectPlannerCostRevenueSoapIn">
+    <wsdl:part name="parameters" element="tns:GetProjectPlannerCostRevenue" />
+  </wsdl:message>
+  <wsdl:message name="GetProjectPlannerCostRevenueSoapOut">
+    <wsdl:part name="parameters" element="tns:GetProjectPlannerCostRevenueResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetProjectPlannerCostRevenueICERequestHeader">
+    <wsdl:part name="ICERequestHeader" element="s1:ICERequestHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetProjectPlannerCostRevenueICEResponseHeader">
+    <wsdl:part name="ICEResponseHeader" element="s1:ICEResponseHeader" />
+  </wsdl:message>
+  <wsdl:message name="UpdateCreditFormSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateCreditForm" />
+  </wsdl:message>
+  <wsdl:message name="UpdateCreditFormSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateCreditFormResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateCreditFormICERequestHeader">
+    <wsdl:part name="ICERequestHeader" element="s1:ICERequestHeader" />
+  </wsdl:message>
+  <wsdl:message name="UpdateCreditFormICEResponseHeader">
+    <wsdl:part name="ICEResponseHeader" element="s1:ICEResponseHeader" />
+  </wsdl:message>
+  <wsdl:message name="UpdateBillingFormSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateBillingForm" />
+  </wsdl:message>
+  <wsdl:message name="UpdateBillingFormSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateBillingFormResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateBillingFormICERequestHeader">
+    <wsdl:part name="ICERequestHeader" element="s1:ICERequestHeader" />
+  </wsdl:message>
+  <wsdl:message name="UpdateBillingFormICEResponseHeader">
+    <wsdl:part name="ICEResponseHeader" element="s1:ICEResponseHeader" />
+  </wsdl:message>
+  <wsdl:message name="RoundValueSoapIn">
+    <wsdl:part name="parameters" element="tns:RoundValue" />
+  </wsdl:message>
+  <wsdl:message name="RoundValueSoapOut">
+    <wsdl:part name="parameters" element="tns:RoundValueResponse" />
+  </wsdl:message>
+  <wsdl:message name="RoundValueICERequestHeader">
+    <wsdl:part name="ICERequestHeader" element="s1:ICERequestHeader" />
+  </wsdl:message>
+  <wsdl:message name="RoundValueICEResponseHeader">
+    <wsdl:part name="ICEResponseHeader" element="s1:ICEResponseHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetProjectTeamSoapIn">
+    <wsdl:part name="parameters" element="tns:GetProjectTeam" />
+  </wsdl:message>
+  <wsdl:message name="GetProjectTeamSoapOut">
+    <wsdl:part name="parameters" element="tns:GetProjectTeamResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetProjectTeamICERequestHeader">
+    <wsdl:part name="ICERequestHeader" element="s1:ICERequestHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetProjectTeamICEResponseHeader">
+    <wsdl:part name="ICEResponseHeader" element="s1:ICEResponseHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetTeamListForSiteSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTeamListForSite" />
+  </wsdl:message>
+  <wsdl:message name="GetTeamListForSiteSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTeamListForSiteResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetTeamListForSiteICERequestHeader">
+    <wsdl:part name="ICERequestHeader" element="s1:ICERequestHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetTeamListForSiteICEResponseHeader">
+    <wsdl:part name="ICEResponseHeader" element="s1:ICEResponseHeader" />
+  </wsdl:message>
+  <wsdl:message name="ClientHelperGetProjectTreeSoapIn">
+    <wsdl:part name="parameters" element="tns:ClientHelperGetProjectTree" />
+  </wsdl:message>
+  <wsdl:message name="ClientHelperGetProjectTreeSoapOut">
+    <wsdl:part name="parameters" element="tns:ClientHelperGetProjectTreeResponse" />
+  </wsdl:message>
+  <wsdl:message name="ClientHelperGetProjectTreeICERequestHeader">
+    <wsdl:part name="ICERequestHeader" element="s1:ICERequestHeader" />
+  </wsdl:message>
+  <wsdl:message name="ClientHelperGetProjectTreeICEResponseHeader">
+    <wsdl:part name="ICEResponseHeader" element="s1:ICEResponseHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetNavigatorSoapIn">
+    <wsdl:part name="parameters" element="tns:GetNavigator" />
+  </wsdl:message>
+  <wsdl:message name="GetNavigatorSoapOut">
+    <wsdl:part name="parameters" element="tns:GetNavigatorResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetNavigatorICERequestHeader">
+    <wsdl:part name="ICERequestHeader" element="s1:ICERequestHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetNavigatorICEResponseHeader">
+    <wsdl:part name="ICEResponseHeader" element="s1:ICEResponseHeader" />
+  </wsdl:message>
+  <wsdl:message name="ApproveAndEngageProjectSoapIn">
+    <wsdl:part name="parameters" element="tns:ApproveAndEngageProject" />
+  </wsdl:message>
+  <wsdl:message name="ApproveAndEngageProjectSoapOut">
+    <wsdl:part name="parameters" element="tns:ApproveAndEngageProjectResponse" />
+  </wsdl:message>
+  <wsdl:message name="ApproveAndEngageProjectICERequestHeader">
+    <wsdl:part name="ICERequestHeader" element="s1:ICERequestHeader" />
+  </wsdl:message>
+  <wsdl:message name="ApproveAndEngageProjectICEResponseHeader">
+    <wsdl:part name="ICEResponseHeader" element="s1:ICEResponseHeader" />
+  </wsdl:message>
+  <wsdl:message name="UpdateRecurringHoursSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateRecurringHours" />
+  </wsdl:message>
+  <wsdl:message name="UpdateRecurringHoursSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateRecurringHoursResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateRecurringHoursICERequestHeader">
+    <wsdl:part name="ICERequestHeader" element="s1:ICERequestHeader" />
+  </wsdl:message>
+  <wsdl:message name="UpdateRecurringHoursICEResponseHeader">
+    <wsdl:part name="ICEResponseHeader" element="s1:ICEResponseHeader" />
+  </wsdl:message>
+  <wsdl:message name="UpdateRecurringExpensesSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateRecurringExpenses" />
+  </wsdl:message>
+  <wsdl:message name="UpdateRecurringExpensesSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateRecurringExpensesResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateRecurringExpensesICERequestHeader">
+    <wsdl:part name="ICERequestHeader" element="s1:ICERequestHeader" />
+  </wsdl:message>
+  <wsdl:message name="UpdateRecurringExpensesICEResponseHeader">
+    <wsdl:part name="ICEResponseHeader" element="s1:ICEResponseHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetArtifactDocumentListSoapIn">
+    <wsdl:part name="parameters" element="tns:GetArtifactDocumentList" />
+  </wsdl:message>
+  <wsdl:message name="GetArtifactDocumentListSoapOut">
+    <wsdl:part name="parameters" element="tns:GetArtifactDocumentListResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetArtifactDocumentListICERequestHeader">
+    <wsdl:part name="ICERequestHeader" element="s1:ICERequestHeader" />
+  </wsdl:message>
+  <wsdl:message name="GetArtifactDocumentListICEResponseHeader">
+    <wsdl:part name="ICEResponseHeader" element="s1:ICEResponseHeader" />
+  </wsdl:message>
+  <wsdl:portType name="PSAClientHelperWSSoap">
+    <wsdl:operation name="GetResourceMonthlyCalendar">
+      <wsdl:input message="tns:GetResourceMonthlyCalendarSoapIn" />
+      <wsdl:output message="tns:GetResourceMonthlyCalendarSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetResourceDailyCalendar">
+      <wsdl:input message="tns:GetResourceDailyCalendarSoapIn" />
+      <wsdl:output message="tns:GetResourceDailyCalendarSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOrganizationUnitListForCompany">
+      <wsdl:input message="tns:GetOrganizationUnitListForCompanySoapIn" />
+      <wsdl:output message="tns:GetOrganizationUnitListForCompanySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOrganizationUnitTreeForSitePickList">
+      <wsdl:input message="tns:GetOrganizationUnitTreeForSitePickListSoapIn" />
+      <wsdl:output message="tns:GetOrganizationUnitTreeForSitePickListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProjectForEmployee">
+      <wsdl:input message="tns:GetProjectForEmployeeSoapIn" />
+      <wsdl:output message="tns:GetProjectForEmployeeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProjectEmployeeForPDA">
+      <wsdl:input message="tns:GetProjectEmployeeForPDASoapIn" />
+      <wsdl:output message="tns:GetProjectEmployeeForPDASoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProjectPlannerDataForTask">
+      <wsdl:input message="tns:GetProjectPlannerDataForTaskSoapIn" />
+      <wsdl:output message="tns:GetProjectPlannerDataForTaskSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateResourcePlanner">
+      <wsdl:input message="tns:UpdateResourcePlannerSoapIn" />
+      <wsdl:output message="tns:UpdateResourcePlannerSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ChangeProjectPlannerEntryView">
+      <wsdl:input message="tns:ChangeProjectPlannerEntryViewSoapIn" />
+      <wsdl:output message="tns:ChangeProjectPlannerEntryViewSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProjectPlannerCostRevenue">
+      <wsdl:input message="tns:GetProjectPlannerCostRevenueSoapIn" />
+      <wsdl:output message="tns:GetProjectPlannerCostRevenueSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCreditForm">
+      <wsdl:input message="tns:UpdateCreditFormSoapIn" />
+      <wsdl:output message="tns:UpdateCreditFormSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateBillingForm">
+      <wsdl:input message="tns:UpdateBillingFormSoapIn" />
+      <wsdl:output message="tns:UpdateBillingFormSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RoundValue">
+      <wsdl:input message="tns:RoundValueSoapIn" />
+      <wsdl:output message="tns:RoundValueSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProjectTeam">
+      <wsdl:input message="tns:GetProjectTeamSoapIn" />
+      <wsdl:output message="tns:GetProjectTeamSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTeamListForSite">
+      <wsdl:input message="tns:GetTeamListForSiteSoapIn" />
+      <wsdl:output message="tns:GetTeamListForSiteSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ClientHelperGetProjectTree">
+      <wsdl:input message="tns:ClientHelperGetProjectTreeSoapIn" />
+      <wsdl:output message="tns:ClientHelperGetProjectTreeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNavigator">
+      <wsdl:input message="tns:GetNavigatorSoapIn" />
+      <wsdl:output message="tns:GetNavigatorSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ApproveAndEngageProject">
+      <wsdl:input message="tns:ApproveAndEngageProjectSoapIn" />
+      <wsdl:output message="tns:ApproveAndEngageProjectSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateRecurringHours">
+      <wsdl:input message="tns:UpdateRecurringHoursSoapIn" />
+      <wsdl:output message="tns:UpdateRecurringHoursSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateRecurringExpenses">
+      <wsdl:input message="tns:UpdateRecurringExpensesSoapIn" />
+      <wsdl:output message="tns:UpdateRecurringExpensesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetArtifactDocumentList">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">***REMOTE SOAP PROXY USE ONLY***</wsdl:documentation>
+      <wsdl:input message="tns:GetArtifactDocumentListSoapIn" />
+      <wsdl:output message="tns:GetArtifactDocumentListSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="PSAClientHelperWSSoap" type="tns:PSAClientHelperWSSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetResourceMonthlyCalendar">
+      <soap:operation soapAction="http://epicor.com/webservices/GetResourceMonthlyCalendar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetResourceMonthlyCalendarICERequestHeader" part="ICERequestHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetResourceMonthlyCalendarICEResponseHeader" part="ICEResponseHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetResourceDailyCalendar">
+      <soap:operation soapAction="http://epicor.com/webservices/GetResourceDailyCalendar" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetResourceDailyCalendarICERequestHeader" part="ICERequestHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetResourceDailyCalendarICEResponseHeader" part="ICEResponseHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrganizationUnitListForCompany">
+      <soap:operation soapAction="http://epicor.com/webservices/GetOrganizationUnitListForCompany" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetOrganizationUnitListForCompanyICERequestHeader" part="ICERequestHeader"
+                     use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetOrganizationUnitListForCompanyICEResponseHeader" part="ICEResponseHeader"
+                     use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrganizationUnitTreeForSitePickList">
+      <soap:operation soapAction="http://epicor.com/webservices/GetOrganizationUnitTreeForSitePickList"
+                      style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetOrganizationUnitTreeForSitePickListICERequestHeader" part="ICERequestHeader"
+                     use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetOrganizationUnitTreeForSitePickListICEResponseHeader" part="ICEResponseHeader"
+                     use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProjectForEmployee">
+      <soap:operation soapAction="http://epicor.com/webservices/GetProjectForEmployee" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetProjectForEmployeeICERequestHeader" part="ICERequestHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetProjectForEmployeeICEResponseHeader" part="ICEResponseHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProjectEmployeeForPDA">
+      <soap:operation soapAction="http://epicor.com/webservices/GetProjectEmployeeForPDA" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetProjectEmployeeForPDAICERequestHeader" part="ICERequestHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetProjectEmployeeForPDAICEResponseHeader" part="ICEResponseHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProjectPlannerDataForTask">
+      <soap:operation soapAction="http://epicor.com/webservices/GetProjectPlannerDataForTask" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetProjectPlannerDataForTaskICERequestHeader" part="ICERequestHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetProjectPlannerDataForTaskICEResponseHeader" part="ICEResponseHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateResourcePlanner">
+      <soap:operation soapAction="http://epicor.com/webservices/UpdateResourcePlanner" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:UpdateResourcePlannerICERequestHeader" part="ICERequestHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:UpdateResourcePlannerICEResponseHeader" part="ICEResponseHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChangeProjectPlannerEntryView">
+      <soap:operation soapAction="http://epicor.com/webservices/ChangeProjectPlannerEntryView" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:ChangeProjectPlannerEntryViewICERequestHeader" part="ICERequestHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:ChangeProjectPlannerEntryViewICEResponseHeader" part="ICEResponseHeader"
+                     use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProjectPlannerCostRevenue">
+      <soap:operation soapAction="http://epicor.com/webservices/GetProjectPlannerCostRevenue" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetProjectPlannerCostRevenueICERequestHeader" part="ICERequestHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetProjectPlannerCostRevenueICEResponseHeader" part="ICEResponseHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCreditForm">
+      <soap:operation soapAction="http://epicor.com/webservices/UpdateCreditForm" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:UpdateCreditFormICERequestHeader" part="ICERequestHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:UpdateCreditFormICEResponseHeader" part="ICEResponseHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateBillingForm">
+      <soap:operation soapAction="http://epicor.com/webservices/UpdateBillingForm" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:UpdateBillingFormICERequestHeader" part="ICERequestHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:UpdateBillingFormICEResponseHeader" part="ICEResponseHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RoundValue">
+      <soap:operation soapAction="http://epicor.com/webservices/RoundValue" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:RoundValueICERequestHeader" part="ICERequestHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:RoundValueICEResponseHeader" part="ICEResponseHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProjectTeam">
+      <soap:operation soapAction="http://epicor.com/webservices/GetProjectTeam" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetProjectTeamICERequestHeader" part="ICERequestHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetProjectTeamICEResponseHeader" part="ICEResponseHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTeamListForSite">
+      <soap:operation soapAction="http://epicor.com/webservices/GetTeamListForSite" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetTeamListForSiteICERequestHeader" part="ICERequestHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetTeamListForSiteICEResponseHeader" part="ICEResponseHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ClientHelperGetProjectTree">
+      <soap:operation soapAction="http://epicor.com/webservices/ClientHelperGetProjectTree" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:ClientHelperGetProjectTreeICERequestHeader" part="ICERequestHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:ClientHelperGetProjectTreeICEResponseHeader" part="ICEResponseHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNavigator">
+      <soap:operation soapAction="http://epicor.com/webservices/GetNavigator" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetNavigatorICERequestHeader" part="ICERequestHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetNavigatorICEResponseHeader" part="ICEResponseHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ApproveAndEngageProject">
+      <soap:operation soapAction="http://epicor.com/webservices/ApproveAndEngageProject" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:ApproveAndEngageProjectICERequestHeader" part="ICERequestHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:ApproveAndEngageProjectICEResponseHeader" part="ICEResponseHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateRecurringHours">
+      <soap:operation soapAction="http://epicor.com/webservices/UpdateRecurringHours" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:UpdateRecurringHoursICERequestHeader" part="ICERequestHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:UpdateRecurringHoursICEResponseHeader" part="ICEResponseHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateRecurringExpenses">
+      <soap:operation soapAction="http://epicor.com/webservices/UpdateRecurringExpenses" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:UpdateRecurringExpensesICERequestHeader" part="ICERequestHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:UpdateRecurringExpensesICEResponseHeader" part="ICEResponseHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetArtifactDocumentList">
+      <soap:operation soapAction="http://epicor.com/webservices/GetArtifactDocumentList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetArtifactDocumentListICERequestHeader" part="ICERequestHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetArtifactDocumentListICEResponseHeader" part="ICEResponseHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="PSAClientHelperWSSoap12" type="tns:PSAClientHelperWSSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetResourceMonthlyCalendar">
+      <soap12:operation soapAction="http://epicor.com/webservices/GetResourceMonthlyCalendar" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetResourceMonthlyCalendarICERequestHeader" part="ICERequestHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetResourceMonthlyCalendarICEResponseHeader" part="ICEResponseHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetResourceDailyCalendar">
+      <soap12:operation soapAction="http://epicor.com/webservices/GetResourceDailyCalendar" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetResourceDailyCalendarICERequestHeader" part="ICERequestHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetResourceDailyCalendarICEResponseHeader" part="ICEResponseHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrganizationUnitListForCompany">
+      <soap12:operation soapAction="http://epicor.com/webservices/GetOrganizationUnitListForCompany" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetOrganizationUnitListForCompanyICERequestHeader" part="ICERequestHeader"
+                       use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetOrganizationUnitListForCompanyICEResponseHeader" part="ICEResponseHeader"
+                       use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrganizationUnitTreeForSitePickList">
+      <soap12:operation soapAction="http://epicor.com/webservices/GetOrganizationUnitTreeForSitePickList"
+                        style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetOrganizationUnitTreeForSitePickListICERequestHeader" part="ICERequestHeader"
+                       use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetOrganizationUnitTreeForSitePickListICEResponseHeader" part="ICEResponseHeader"
+                       use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProjectForEmployee">
+      <soap12:operation soapAction="http://epicor.com/webservices/GetProjectForEmployee" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetProjectForEmployeeICERequestHeader" part="ICERequestHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetProjectForEmployeeICEResponseHeader" part="ICEResponseHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProjectEmployeeForPDA">
+      <soap12:operation soapAction="http://epicor.com/webservices/GetProjectEmployeeForPDA" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetProjectEmployeeForPDAICERequestHeader" part="ICERequestHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetProjectEmployeeForPDAICEResponseHeader" part="ICEResponseHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProjectPlannerDataForTask">
+      <soap12:operation soapAction="http://epicor.com/webservices/GetProjectPlannerDataForTask" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetProjectPlannerDataForTaskICERequestHeader" part="ICERequestHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetProjectPlannerDataForTaskICEResponseHeader" part="ICEResponseHeader"
+                       use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateResourcePlanner">
+      <soap12:operation soapAction="http://epicor.com/webservices/UpdateResourcePlanner" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:UpdateResourcePlannerICERequestHeader" part="ICERequestHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:UpdateResourcePlannerICEResponseHeader" part="ICEResponseHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChangeProjectPlannerEntryView">
+      <soap12:operation soapAction="http://epicor.com/webservices/ChangeProjectPlannerEntryView" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:ChangeProjectPlannerEntryViewICERequestHeader" part="ICERequestHeader"
+                       use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:ChangeProjectPlannerEntryViewICEResponseHeader" part="ICEResponseHeader"
+                       use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProjectPlannerCostRevenue">
+      <soap12:operation soapAction="http://epicor.com/webservices/GetProjectPlannerCostRevenue" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetProjectPlannerCostRevenueICERequestHeader" part="ICERequestHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetProjectPlannerCostRevenueICEResponseHeader" part="ICEResponseHeader"
+                       use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateCreditForm">
+      <soap12:operation soapAction="http://epicor.com/webservices/UpdateCreditForm" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:UpdateCreditFormICERequestHeader" part="ICERequestHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:UpdateCreditFormICEResponseHeader" part="ICEResponseHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateBillingForm">
+      <soap12:operation soapAction="http://epicor.com/webservices/UpdateBillingForm" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:UpdateBillingFormICERequestHeader" part="ICERequestHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:UpdateBillingFormICEResponseHeader" part="ICEResponseHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RoundValue">
+      <soap12:operation soapAction="http://epicor.com/webservices/RoundValue" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:RoundValueICERequestHeader" part="ICERequestHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:RoundValueICEResponseHeader" part="ICEResponseHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProjectTeam">
+      <soap12:operation soapAction="http://epicor.com/webservices/GetProjectTeam" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetProjectTeamICERequestHeader" part="ICERequestHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetProjectTeamICEResponseHeader" part="ICEResponseHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTeamListForSite">
+      <soap12:operation soapAction="http://epicor.com/webservices/GetTeamListForSite" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetTeamListForSiteICERequestHeader" part="ICERequestHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetTeamListForSiteICEResponseHeader" part="ICEResponseHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ClientHelperGetProjectTree">
+      <soap12:operation soapAction="http://epicor.com/webservices/ClientHelperGetProjectTree" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:ClientHelperGetProjectTreeICERequestHeader" part="ICERequestHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:ClientHelperGetProjectTreeICEResponseHeader" part="ICEResponseHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNavigator">
+      <soap12:operation soapAction="http://epicor.com/webservices/GetNavigator" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetNavigatorICERequestHeader" part="ICERequestHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetNavigatorICEResponseHeader" part="ICEResponseHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ApproveAndEngageProject">
+      <soap12:operation soapAction="http://epicor.com/webservices/ApproveAndEngageProject" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:ApproveAndEngageProjectICERequestHeader" part="ICERequestHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:ApproveAndEngageProjectICEResponseHeader" part="ICEResponseHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateRecurringHours">
+      <soap12:operation soapAction="http://epicor.com/webservices/UpdateRecurringHours" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:UpdateRecurringHoursICERequestHeader" part="ICERequestHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:UpdateRecurringHoursICEResponseHeader" part="ICEResponseHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateRecurringExpenses">
+      <soap12:operation soapAction="http://epicor.com/webservices/UpdateRecurringExpenses" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:UpdateRecurringExpensesICERequestHeader" part="ICERequestHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:UpdateRecurringExpensesICEResponseHeader" part="ICEResponseHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetArtifactDocumentList">
+      <soap12:operation soapAction="http://epicor.com/webservices/GetArtifactDocumentList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetArtifactDocumentListICERequestHeader" part="ICERequestHeader" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetArtifactDocumentListICEResponseHeader" part="ICEResponseHeader" use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PSAClientHelperWS">
+    <wsdl:port name="PSAClientHelperWSSoap" binding="tns:PSAClientHelperWSSoap">
+      <soap:address location="http://epicor/e4se/PSAClientHelper.asmx" />
+    </wsdl:port>
+    <wsdl:port name="PSAClientHelperWSSoap12" binding="tns:PSAClientHelperWSSoap12">
+      <soap12:address location="http://epicor/e4se/PSAClientHelper.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
