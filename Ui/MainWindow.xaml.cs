@@ -21,18 +21,20 @@ namespace Ui
         public ObservableCollection<Time> Charges { get; set; }
         public ObservableCollection<NavigatorNode> SearchResults { get; set; }
         public NavigatorNode SelectedNode { get; set; }
+        public DateTime WeekShown { get; set; }
 
         public MainWindow()
         {
             InitializeComponent();
             InitializeCodes();
+            InitializeDates(DateTime.Today);
             InitializeCurrentCharges();
-            InitializeDates();
         }
 
-        private void InitializeDates()
+        private void InitializeDates(DateTime week)
         {
-            var sunday = new Epicor().GetStartOfWeek(DateTime.Today);
+            WeekShown = week;
+            var sunday = new Epicor().GetStartOfWeek(WeekShown);
             SundayLabel.Text = "Sun " + sunday.ToString("MM/dd");
             MondayLabel.Text = "Mon " + sunday.AddDays(1).ToString("MM/dd");
             TuesdayLabel.Text = "Tue " + sunday.AddDays(2).ToString("MM/dd");
@@ -58,10 +60,10 @@ namespace Ui
             var epicor = new Epicor();
 
             if (SelectedNode.NodeType == "Task")
-                return epicor.CreateTaskTime(SelectedNode.Data as TaskData, Comments.Text, dayOfWeek, hours);
+                return epicor.CreateTaskTime(WeekShown, SelectedNode.Data as TaskData, Comments.Text, dayOfWeek, hours);
 
             if (SelectedNode.NodeType == "InternalCode")
-                return epicor.CreateInternalCodeTime(SelectedNode, Comments.Text, dayOfWeek, hours);
+                return epicor.CreateInternalCodeTime(WeekShown, SelectedNode, Comments.Text, dayOfWeek, hours);
 
             MessageBox.Show("No time type for " + SelectedNode.NodeType, "Failed to convert time", MessageBoxButton.OK,
                 MessageBoxImage.Error);
@@ -79,8 +81,8 @@ namespace Ui
             bgWorker.DoWork += (sender, args) =>
             {
                 var e = new Epicor();
-                var charges = e.GetCurrentCharges();
-                var from = e.GetStartOfWeek(DateTime.Today);
+                var charges = e.GetCurrentCharges(WeekShown);
+                var from = e.GetStartOfWeek(WeekShown);
                 var to = from.AddDays(6);
                 var totals = Enum.GetNames(typeof (DayOfWeek)).Select(day => new Tuple<string, decimal>(day, charges.Where(c => c.TimeEntryDate.DayOfWeek == ((DayOfWeek) Enum.Parse(typeof (DayOfWeek), day))).Sum(c => c.Hours))).ToList();
 
@@ -173,7 +175,6 @@ namespace Ui
             Results.MouseDoubleClick += (sender, args) =>
             {
                 var node = ((ListView) sender).SelectedItem as NavigatorNode;
-                Debug.Assert(node != null);
                 SelectNode(node);
             };
 
@@ -221,6 +222,7 @@ namespace Ui
 
         private void SelectNode(NavigatorNode node)
         {
+            Save.IsEnabled = true;
             SelectedNode = node;
             SelectedTask.Text = node.ToString();
             ClearEntries();
@@ -254,9 +256,10 @@ namespace Ui
 
         private void SaveClick(object sender, RoutedEventArgs e)
         {
-            Save.IsEnabled = false;
             if (SelectedNode == null) return;
 
+            Save.IsEnabled = false;
+            
             var times = BuildTimes();
             var bgWorker = new BackgroundWorker();
 
@@ -344,6 +347,18 @@ namespace Ui
         private void ToggleApprovals(object sender, RoutedEventArgs e)
         {
             Approve.IsEnabled = CurrentCharges.SelectedItems.OfType<Time>().Any(t => t.StatusCode != "E" && t.StatusCode != "A");
+        }
+
+        private void AdvanceWeek(object sender, RoutedEventArgs e)
+        {
+            WeekShown = WeekShown.AddDays(7);
+            InitializeCurrentCharges();
+        }
+
+        private void BackWeek(object sender, RoutedEventArgs e)
+        {
+            WeekShown = WeekShown.AddDays(-7);
+            InitializeCurrentCharges();
         }
     }
 }

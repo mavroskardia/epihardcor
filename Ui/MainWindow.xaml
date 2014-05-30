@@ -1,7 +1,7 @@
 ﻿<Window x:Class="Ui.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="EpiHardcor" Height="700" Width="1000" MinWidth="875"
+        Title="EpiHardcor" Height="700" Width="1100" MinWidth="875"
         Icon="time.ico">
     <Window.Resources>
         <LinearGradientBrush x:Key="BlueGradientBrush" EndPoint="0.5,1" StartPoint="0.5,0">
@@ -60,9 +60,9 @@
                 </Style>
             </Grid.Resources>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200*" MinWidth="275" />
+                <ColumnDefinition Width="200*" MinWidth="285" />
                 <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="300*" MinWidth="600" />
+                <ColumnDefinition Width="300*" MinWidth="700" />
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0" Name="LoadingMessage" Visibility="Visible" Foreground="CornflowerBlue"
                        FontStyle="Italic" TextAlignment="Right" VerticalAlignment="Top" Padding="10,5,10,10">
@@ -115,6 +115,7 @@
                 </StackPanel>
                 <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="40" />
                         <ColumnDefinition Width="1*" />
                         <ColumnDefinition Width="1*" />
                         <ColumnDefinition Width="1*" />
@@ -122,6 +123,7 @@
                         <ColumnDefinition Width="1*" />
                         <ColumnDefinition Width="1*" />
                         <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="40" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="55" />
@@ -129,50 +131,56 @@
                         <RowDefinition Height="1*" />
                     </Grid.RowDefinitions>
 
-                    <Border Style="{StaticResource DateBorderStyle}" Grid.Row="0" Grid.Column="0">
+                    <Button Grid.Column="0" FontFamily="/Ui;component/#FontAwesome" Margin="5,0" Click="BackWeek"
+                               FontSize="20" BorderBrush="Transparent" Background="Transparent" Foreground="{StaticResource BlueGradientBrush}"></Button>
+                    
+                    <Border Style="{StaticResource DateBorderStyle}" Grid.Row="0" Grid.Column="1">
                         <StackPanel Orientation="Vertical">
                             <TextBlock Style="{StaticResource DateStyle}" Name="SundayLabel">S</TextBlock>
                             <TextBox Name="Sunday" />
                         </StackPanel>
                     </Border>
 
-                    <Border Style="{StaticResource DateBorderStyle}" Grid.Row="0" Grid.Column="1">
+                    <Border Style="{StaticResource DateBorderStyle}" Grid.Row="0" Grid.Column="2">
                         <StackPanel Orientation="Vertical">
                             <TextBlock Style="{StaticResource DateStyle}" Name="MondayLabel">M</TextBlock>
                             <TextBox Name="Monday" />
                         </StackPanel>
                     </Border>
 
-                    <Border Style="{StaticResource DateBorderStyle}" Grid.Row="0" Grid.Column="2">
+                    <Border Style="{StaticResource DateBorderStyle}" Grid.Row="0" Grid.Column="3">
                         <StackPanel Orientation="Vertical">
                             <TextBlock Style="{StaticResource DateStyle}" Name="TuesdayLabel">T</TextBlock>
                             <TextBox Name="Tuesday" />
                         </StackPanel>
                     </Border>
-                    <Border Style="{StaticResource DateBorderStyle}" Grid.Row="0" Grid.Column="3">
+                    <Border Style="{StaticResource DateBorderStyle}" Grid.Row="0" Grid.Column="4">
                         <StackPanel Orientation="Vertical">
                             <TextBlock Style="{StaticResource DateStyle}" Name="WednesdayLabel">W</TextBlock>
                             <TextBox Name="Wednesday" />
                         </StackPanel>
                     </Border>
-                    <Border Style="{StaticResource DateBorderStyle}" Grid.Row="0" Grid.Column="4">
+                    <Border Style="{StaticResource DateBorderStyle}" Grid.Row="0" Grid.Column="5">
                         <StackPanel Orientation="Vertical">
                             <TextBlock Style="{StaticResource DateStyle}" Name="ThursdayLabel">R</TextBlock>
                             <TextBox Name="Thursday" />
                         </StackPanel>
                     </Border>
-                    <Border Style="{StaticResource DateBorderStyle}" Grid.Row="0" Grid.Column="5">
+                    <Border Style="{StaticResource DateBorderStyle}" Grid.Row="0" Grid.Column="6">
                         <StackPanel Orientation="Vertical">
                             <TextBlock Style="{StaticResource DateStyle}" Name="FridayLabel">F</TextBlock>
                             <TextBox Name="Friday" />
                         </StackPanel>
                     </Border>
-                    <Border Style="{StaticResource DateBorderStyle}" Grid.Row="0" Grid.Column="6">
+                    <Border Style="{StaticResource DateBorderStyle}" Grid.Row="0" Grid.Column="7">
                         <StackPanel Orientation="Vertical">
                             <TextBlock Style="{StaticResource DateStyle}" Name="SaturdayLabel">S</TextBlock>
                             <TextBox Name="Saturday" />
                         </StackPanel>
                     </Border>
+
+                    <Button Grid.Column="8" FontFamily="/Ui;component/#FontAwesome" Margin="5,0" Click="AdvanceWeek"
+                               FontSize="20" BorderBrush="Transparent" Background="Transparent" Foreground="{StaticResource BlueGradientBrush}"></Button>
 
                     <TextBlock Margin="5" Grid.Row="1" Grid.Column="0" TextAlignment="Left" VerticalAlignment="Center"
                            Grid.ColumnSpan="7">
@@ -181,7 +189,7 @@
                     <TextBox Name="Comments" Grid.ColumnSpan="7" Grid.Column="0" Grid.Row="2" MinLines="3" />
                 </Grid>
                 <StackPanel Grid.Row="2" Orientation="Horizontal">
-                    <Button Name="Save" Padding="5" Margin="5" Click="SaveClick">Save Time</Button>
+                    <Button Name="Save" Padding="5" Margin="5" Click="SaveClick" IsEnabled="False">Save Time</Button>
                     <Button Name="Approve" IsEnabled="False" Padding="5" Margin="5" Click="ApproveClick">Mark for Approval</Button>
                     <TextBlock Name="Messages" />
                 </StackPanel>

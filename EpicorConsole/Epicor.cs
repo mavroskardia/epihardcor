@@ -142,10 +142,10 @@ namespace EpicorConsole
             return deepestMatch;
         }
 
-        public List<Time> GetCurrentCharges()
+        public List<Time> GetCurrentCharges(DateTime date)
         {
             var client = new TimeWSSoapClient();
-            var fromDate = GetStartOfWeek(DateTime.Today);
+            var fromDate = GetStartOfWeek(date);
             var toDate = fromDate.AddDays(6);
 
             XmlNode result;
@@ -216,14 +216,14 @@ namespace EpicorConsole
             return modifiedTimes;
         }
 
-        public Time CreateTaskTime(TaskData tdata, string comments, string dayOfWeek, decimal hours)
+        public Time CreateTaskTime(DateTime date, TaskData tdata, string comments, string dayOfWeek, decimal hours)
         {
             return new Time
             {
                 ProjectCode = tdata.ProjectCode,
                 TaskUID = tdata.TaskUID,
                 ResourceID = GetResourceId(),
-                TimeEntryDate = GetStartOfWeek(DateTime.Today).AddDays((int) Enum.Parse(typeof (DayOfWeek), dayOfWeek)),
+                TimeEntryDate = GetStartOfWeek(date).AddDays((int) Enum.Parse(typeof (DayOfWeek), dayOfWeek)),
                 StatusCode = "N",
                 StandardHours = hours,
                 OvertimeHours = 0m,
@@ -276,7 +276,7 @@ namespace EpicorConsole
             };
         }
 
-        public Time CreateInternalCodeTime(NavigatorNode node, string comments, string dayOfWeek, decimal hours)
+        public Time CreateInternalCodeTime(DateTime date, NavigatorNode node, string comments, string dayOfWeek, decimal hours)
         {
             var idata = (InternalCodeData) node.Data;
 
@@ -288,7 +288,7 @@ namespace EpicorConsole
                 ActivityDesc = node.Caption,
                 WorkComment = comments,
                 ResourceID = GetResourceId(),
-                TimeEntryDate = GetStartOfWeek(DateTime.Today).AddDays((int) Enum.Parse(typeof (DayOfWeek), dayOfWeek)),
+                TimeEntryDate = GetStartOfWeek(date).AddDays((int) Enum.Parse(typeof (DayOfWeek), dayOfWeek)),
                 StatusCode = "N",
                 Status = "New",
                 StandardHours = hours,

@@ -9,27 +9,33 @@ namespace EpicorConsole
     {
         private static void Main(string[] args)
         {
-            if (args.Length == 1)
+            switch (args.Length)
             {
-                string serializedData = new StreamReader(File.OpenRead(args[0])).ReadToEnd();
-                var serializer = new TreeSerializer<NavigatorNode>();
-                Tree<NavigatorNode> tree = serializer.Deserialize(serializedData);
-                Console.WriteLine(serializer.PrettyPrint(tree));
-            }
-            else if (args.Length == 2)
-            {
-                List<Time> charges = new Epicor().GetCurrentCharges();
-                foreach (Time charge in charges)
+                case 1:
                 {
-                    Console.WriteLine(charge);
+                    var serializedData = new StreamReader(File.OpenRead(args[0])).ReadToEnd();
+                    var serializer = new TreeSerializer<NavigatorNode>();
+                    var tree = serializer.Deserialize(serializedData);
+                    Console.WriteLine(serializer.PrettyPrint(tree));
                 }
-            }
-            else
-            {
-                var epicor = new Epicor();
-                Tree<NavigatorNode> rootActivity = epicor.GetSiteActivities();
-                string json = new TreeSerializer<NavigatorNode>().Serialize(rootActivity);
-                Console.WriteLine(json);
+                    break;
+                case 2:
+                {
+                    var charges = new Epicor().GetCurrentCharges(DateTime.Today);
+                    foreach (var charge in charges)
+                    {
+                        Console.WriteLine(charge);
+                    }
+                }
+                    break;
+                default:
+                {
+                    var epicor = new Epicor();
+                    var rootActivity = epicor.GetSiteActivities();
+                    var json = new TreeSerializer<NavigatorNode>().Serialize(rootActivity);
+                    Console.WriteLine(json);
+                }
+                    break;
             }
         }
     }
