@@ -352,12 +352,14 @@ namespace Ui
         private void AdvanceWeek(object sender, RoutedEventArgs e)
         {
             WeekShown = WeekShown.AddDays(7);
+            InitializeDates(WeekShown);
             InitializeCurrentCharges();
         }
 
         private void BackWeek(object sender, RoutedEventArgs e)
         {
             WeekShown = WeekShown.AddDays(-7);
+            InitializeDates(WeekShown);
             InitializeCurrentCharges();
         }
     }
