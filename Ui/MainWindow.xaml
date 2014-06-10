@@ -1,6 +1,7 @@
-﻿<Window x:Class="Ui.MainWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="Ui.MainWindow"
         Title="EpiHardcor" Height="700" Width="1100" MinWidth="875"
         Icon="time.ico">
     <Window.Resources>
@@ -25,13 +26,13 @@
         </Grid.RowDefinitions>
         <Menu Grid.Row="0">
             <MenuItem Header="_File">
-                <MenuItem Name="RefreshEpicorCodesMenuItem" Header="Refresh Codes from Epicor" Click="RefreshCodesFromEpicor" />
-                <MenuItem Name="RefreshCurrentChargesMenuItem" Header="Refresh Current Charges" Click="RefreshClick"/>
+                <MenuItem x:Name="RefreshEpicorCodesMenuItem" Header="Refresh Codes from Epicor" Click="RefreshCodesFromEpicor" />
+                <MenuItem x:Name="RefreshCurrentChargesMenuItem" Header="Refresh Current Charges" Click="RefreshClick"/>
                 <Separator />
-                <MenuItem Name="ExitMenuItem" Header="E_xit" Click="ExitMenuItem_OnClick" />
+                <MenuItem x:Name="ExitMenuItem" Header="E_xit" Click="ExitMenuItem_OnClick" />
             </MenuItem>
             <MenuItem Header="_Help">
-                <MenuItem Name="AboutMenuItem" Header="_About" Click="AboutMenuItem_OnClick"/>
+                <MenuItem x:Name="AboutMenuItem" Header="_About" Click="AboutMenuItem_OnClick"/>
             </MenuItem>
         </Menu>
         <Grid Grid.Row="1">
@@ -64,10 +65,8 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="300*" MinWidth="700" />
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" Name="LoadingMessage" Visibility="Visible" Foreground="CornflowerBlue"
-                       FontStyle="Italic" TextAlignment="Right" VerticalAlignment="Top" Padding="10,5,10,10">
-                Loading Charge Codes...
-            </TextBlock>
+            <TextBlock Grid.Column="0" x:Name="LoadingMessage" Visibility="Visible" Foreground="CornflowerBlue"
+				FontStyle="Italic" TextAlignment="Right" VerticalAlignment="Top" Padding="10,5,10,10"><Run Text="Loading Charge Codes..."/></TextBlock>
             <TabControl Grid.Column="0" Height="Auto">
                 <TabItem>
                     <TabItem.Header>
@@ -80,13 +79,13 @@
                         </Grid.RowDefinitions>
                         <StackPanel Orientation="Vertical" Grid.Row="0">
                             <TextBlock TextAlignment="Left" Text="Search" />
-                            <TextBox Name="Search" KeyDown="SearchKeyPress" />
+                            <TextBox x:Name="Search" KeyDown="SearchKeyPress" />
                         </StackPanel>
-                        <ListView Name="Results" KeyDown="ResultsKeyPress" Grid.Row="1">
+                        <ListView x:Name="Results" KeyDown="ResultsKeyPress" Grid.Row="1">
                             <ListView.View>
                                 <GridView>
-                                    <GridViewColumn DisplayMemberBinding="{Binding Path='Data.ProjectCode'}"
-                                                    Header="Code" />
+                                    <GridViewColumn DisplayMemberBinding="{Binding Data.ProjectCode}"
+										Header="Code" />
                                     <GridViewColumn DisplayMemberBinding="{Binding Caption}" Header="Task" />
                                 </GridView>
                             </ListView.View>
@@ -97,11 +96,11 @@
                     <TabItem.Header>
                         <TextBlock Text="Tree" />
                     </TabItem.Header>
-                    <TreeView Name="EpicorTree" />
+                    <TreeView x:Name="EpicorTree" />
                 </TabItem>
             </TabControl>
             <GridSplitter Grid.Column="1" HorizontalAlignment="Center" BorderBrush="Bisque" VerticalAlignment="Stretch"
-                      Width="5" />
+				Width="5" />
             <Grid Grid.Column="2">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30" />
@@ -110,8 +109,8 @@
                     <RowDefinition Height="20*" />
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Row="0" Orientation="Horizontal">
-                    <TextBlock FontSize="14" Margin="5">Selected Task:</TextBlock>
-                    <TextBlock Name="SelectedTask" Margin="5" FontSize="14" FontWeight="Bold" Foreground="{StaticResource BlueGradientBrush}" />
+                    <TextBlock FontSize="14" Margin="5"><Run Text="Selected Task:"/></TextBlock>
+                    <TextBlock x:Name="SelectedTask" Margin="5" FontSize="14" FontWeight="Bold" Foreground="{StaticResource BlueGradientBrush}" />
                 </StackPanel>
                 <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
@@ -132,66 +131,64 @@
                     </Grid.RowDefinitions>
 
                     <Button Grid.Column="0" FontFamily="/Ui;component/#FontAwesome" Margin="5,0" Click="BackWeek"
-                               FontSize="20" BorderBrush="Transparent" Background="Transparent" Foreground="{StaticResource BlueGradientBrush}"></Button>
-                    
+						FontSize="20" BorderBrush="Transparent" Background="Transparent" Foreground="{StaticResource BlueGradientBrush}" Content="&#xF053;"/>
+
                     <Border Style="{StaticResource DateBorderStyle}" Grid.Row="0" Grid.Column="1">
                         <StackPanel Orientation="Vertical">
-                            <TextBlock Style="{StaticResource DateStyle}" Name="SundayLabel">S</TextBlock>
-                            <TextBox Name="Sunday" />
+                            <TextBlock Style="{StaticResource DateStyle}" x:Name="SundayLabel"><Run Text="S"/></TextBlock>
+                            <TextBox x:Name="Sunday" />
                         </StackPanel>
                     </Border>
 
                     <Border Style="{StaticResource DateBorderStyle}" Grid.Row="0" Grid.Column="2">
                         <StackPanel Orientation="Vertical">
-                            <TextBlock Style="{StaticResource DateStyle}" Name="MondayLabel">M</TextBlock>
-                            <TextBox Name="Monday" />
+                            <TextBlock Style="{StaticResource DateStyle}" x:Name="MondayLabel"><Run Text="M"/></TextBlock>
+                            <TextBox x:Name="Monday" />
                         </StackPanel>
                     </Border>
 
                     <Border Style="{StaticResource DateBorderStyle}" Grid.Row="0" Grid.Column="3">
                         <StackPanel Orientation="Vertical">
-                            <TextBlock Style="{StaticResource DateStyle}" Name="TuesdayLabel">T</TextBlock>
-                            <TextBox Name="Tuesday" />
+                            <TextBlock Style="{StaticResource DateStyle}" x:Name="TuesdayLabel"><Run Text="T"/></TextBlock>
+                            <TextBox x:Name="Tuesday" />
                         </StackPanel>
                     </Border>
                     <Border Style="{StaticResource DateBorderStyle}" Grid.Row="0" Grid.Column="4">
                         <StackPanel Orientation="Vertical">
-                            <TextBlock Style="{StaticResource DateStyle}" Name="WednesdayLabel">W</TextBlock>
-                            <TextBox Name="Wednesday" />
+                            <TextBlock Style="{StaticResource DateStyle}" x:Name="WednesdayLabel"><Run Text="W"/></TextBlock>
+                            <TextBox x:Name="Wednesday" />
                         </StackPanel>
                     </Border>
                     <Border Style="{StaticResource DateBorderStyle}" Grid.Row="0" Grid.Column="5">
                         <StackPanel Orientation="Vertical">
-                            <TextBlock Style="{StaticResource DateStyle}" Name="ThursdayLabel">R</TextBlock>
-                            <TextBox Name="Thursday" />
+                            <TextBlock Style="{StaticResource DateStyle}" x:Name="ThursdayLabel"><Run Text="R"/></TextBlock>
+                            <TextBox x:Name="Thursday" />
                         </StackPanel>
                     </Border>
                     <Border Style="{StaticResource DateBorderStyle}" Grid.Row="0" Grid.Column="6">
                         <StackPanel Orientation="Vertical">
-                            <TextBlock Style="{StaticResource DateStyle}" Name="FridayLabel">F</TextBlock>
-                            <TextBox Name="Friday" />
+                            <TextBlock Style="{StaticResource DateStyle}" x:Name="FridayLabel"><Run Text="F"/></TextBlock>
+                            <TextBox x:Name="Friday" />
                         </StackPanel>
                     </Border>
                     <Border Style="{StaticResource DateBorderStyle}" Grid.Row="0" Grid.Column="7">
                         <StackPanel Orientation="Vertical">
-                            <TextBlock Style="{StaticResource DateStyle}" Name="SaturdayLabel">S</TextBlock>
-                            <TextBox Name="Saturday" />
+                            <TextBlock Style="{StaticResource DateStyle}" x:Name="SaturdayLabel"><Run Text="S"/></TextBlock>
+                            <TextBox x:Name="Saturday" />
                         </StackPanel>
                     </Border>
 
-                    <Button Grid.Column="8" FontFamily="/Ui;component/#FontAwesome" Margin="5,0" Click="AdvanceWeek"
-                               FontSize="20" BorderBrush="Transparent" Background="Transparent" Foreground="{StaticResource BlueGradientBrush}"></Button>
+                    <Button Grid.Row="0" Grid.Column="8" FontFamily="/Ui;component/#FontAwesome" Margin="5,0" Click="AdvanceWeek"
+						FontSize="20" BorderBrush="Transparent" Background="Transparent" Foreground="{StaticResource BlueGradientBrush}" Content="&#xF054;"/>
 
                     <TextBlock Margin="5" Grid.Row="1" Grid.Column="0" TextAlignment="Left" VerticalAlignment="Center"
-                           Grid.ColumnSpan="7">
-                    Comments:
-                    </TextBlock>
-                    <TextBox Name="Comments" Grid.ColumnSpan="7" Grid.Column="0" Grid.Row="2" MinLines="3" />
+						Grid.ColumnSpan="7"><Run Text="Comments:"/></TextBlock>
+                    <TextBox x:Name="Comments" Grid.ColumnSpan="9" Grid.Column="0" Grid.Row="2" MinLines="3" />
                 </Grid>
                 <StackPanel Grid.Row="2" Orientation="Horizontal">
-                    <Button Name="Save" Padding="5" Margin="5" Click="SaveClick" IsEnabled="False">Save Time</Button>
-                    <Button Name="Approve" IsEnabled="False" Padding="5" Margin="5" Click="ApproveClick">Mark for Approval</Button>
-                    <TextBlock Name="Messages" />
+                    <Button x:Name="Save" Padding="5" Margin="5" Click="SaveClick" IsEnabled="False" Content="Save Time"/>
+                    <Button x:Name="Approve" IsEnabled="False" Padding="5" Margin="5" Click="ApproveClick" Content="Mark for Approval"/>
+                    <TextBlock x:Name="Messages" />
                 </StackPanel>
                 <Grid Grid.Row="3">
                     <Grid.Resources>
@@ -199,48 +196,30 @@
                             <Setter Property="Template">
                                 <Setter.Value>
                                     <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                                        <ControlTemplate.Triggers>
-                                            <EventTrigger RoutedEvent="Selected">
-                                                <BeginStoryboard>
-                                                    <Storyboard>
-                                                        <ColorAnimation From="#444444" To="White" Duration="0:0:0.25" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" />
-                                                    </Storyboard>
-                                                </BeginStoryboard>
-                                            </EventTrigger>
-                                            <EventTrigger RoutedEvent="Unselected">
-                                                <BeginStoryboard>
-                                                    <Storyboard>
-                                                        <ColorAnimation From="White" To="#444444" Duration="0:0:0.25" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" />
-                                                    </Storyboard>
-                                                </BeginStoryboard>
-                                            </EventTrigger>
-                                        </ControlTemplate.Triggers>
-                                        <Border x:Name="CustomBorder" Margin="0,0,0,2" Background="Transparent" CornerRadius="5" BorderThickness="1">
+                                        <Border x:Name="CustomBorder" Background="Transparent" CornerRadius="5" BorderThickness="1">
                                             <VisualStateManager.VisualStateGroups>
                                                 <VisualStateGroup x:Name="SelectionStates">
                                                     <VisualState x:Name="Unselected" />
                                                     <VisualState x:Name="Selected">
                                                         <Storyboard>
                                                             <ColorAnimationUsingKeyFrames 
-                                                                Storyboard.TargetName="CustomBorder"
-                                                                Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)"
-                                                                Duration="0:0:0.25" FillBehavior="HoldEnd">
-                                                                <ColorAnimationUsingKeyFrames.KeyFrames>
-                                                                    <SplineColorKeyFrame Value="{StaticResource SelectedBackgroundColor}" KeyTime="0:0:0.25" KeySpline="0.1,0.2,0.8,0.99" />
-                                                                </ColorAnimationUsingKeyFrames.KeyFrames>
+																Storyboard.TargetName="CustomBorder"
+																Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)"
+																Duration="0:0:0.25" FillBehavior="HoldEnd">
+                                                                <SplineColorKeyFrame Value="{StaticResource SelectedBackgroundColor}" KeyTime="0:0:0.25" KeySpline="0.1,0.2,0.8,0.99" />
                                                             </ColorAnimationUsingKeyFrames>
                                                         </Storyboard>
                                                     </VisualState>
                                                 </VisualStateGroup>
                                             </VisualStateManager.VisualStateGroups>
-                                            <Border Padding="0,3" BorderThickness="0,0,0,1" BorderBrush="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}">
+                                            <Border BorderThickness="0,0,0,1" BorderBrush="{DynamicResource {x:Static SystemColors.ControlLightBrushKey}}">
                                                 <Grid>
                                                     <Grid.ColumnDefinitions>
                                                         <ColumnDefinition Width="50" />
                                                         <ColumnDefinition Width="30" />
                                                         <ColumnDefinition Width="1*" />
                                                     </Grid.ColumnDefinitions>
-                                                    <Border Grid.Column="0" CornerRadius="5" Background="{StaticResource BlueGradientBrush}">
+                                                    <Border Grid.Column="0" Margin="5,3,5,5" CornerRadius="5" Background="{StaticResource BlueGradientBrush}">
                                                         <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Foreground="White" TextWrapping="Wrap" Text="{Binding ShortDate}" />
                                                     </Border>
                                                     <TextBlock Grid.Column="1" Margin="5,0" VerticalAlignment="Center" FontSize="18" Text="{Binding StatusIcon}" FontFamily="/Ui;component/#FontAwesome" ToolTip="A flag indicates this charge is marked for approval, a checkmark indicates it is approved.">
@@ -259,7 +238,7 @@
                                                     </TextBlock>
                                                     <StackPanel Orientation="Vertical" Grid.Column="2">
                                                         <StackPanel Orientation="Horizontal">
-                                                            <TextBlock FontWeight="Bold" FontSize="14" TextWrapping="NoWrap" Text="{Binding TaskOrActivity}" VerticalAlignment="Center"/>
+                                                            <TextBlock Margin="0,3,0,0" FontWeight="Bold" FontSize="14" TextWrapping="NoWrap" Text="{Binding TaskOrActivity}" VerticalAlignment="Center"/>
                                                             <TextBlock FontSize="10" FontStyle="Italic" Margin="5,0" Padding="0,0,0,1" TextWrapping="NoWrap" Text="{Binding ProjectNameOrCode}" VerticalAlignment="Bottom" />
                                                         </StackPanel>
                                                         <StackPanel Orientation="Horizontal">
@@ -270,6 +249,29 @@
                                                 </Grid>
                                             </Border>
                                         </Border>
+                                        <ControlTemplate.Triggers>
+                                            <EventTrigger RoutedEvent="ListBoxItem.Loaded">
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <ColorAnimation To="#444444" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" />
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </EventTrigger>
+                                            <EventTrigger RoutedEvent="ListBoxItem.Selected">
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <ColorAnimation From="#444444" To="White" Duration="0:0:0.25" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" />
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </EventTrigger>
+                                            <EventTrigger RoutedEvent="ListBoxItem.Unselected">
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <ColorAnimation From="White" To="#444444" Duration="0:0:0.25" Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)" />
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </EventTrigger>
+                                        </ControlTemplate.Triggers>
                                     </ControlTemplate>
                                 </Setter.Value>
                             </Setter>
@@ -280,8 +282,13 @@
                         <RowDefinition Height="40" />
                         <RowDefinition Height="1*" />
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" Margin="5" TextAlignment="Left" Name="WeeklyChargesLabel" FontStyle="Italic">Loading this week's charges...</TextBlock>
+                    <TextBlock Grid.Row="0" Margin="5" TextAlignment="Left" x:Name="WeeklyChargesLabel" FontStyle="Italic"><Run Text="Loading this week's charges..."/></TextBlock>
                     <Grid Grid.Row="1">
+                        <Grid.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="Margin" Value="5,0" />
+                            </Style>
+                        </Grid.Resources>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="1*" />
                             <ColumnDefinition Width="1*" />
@@ -291,55 +298,50 @@
                             <ColumnDefinition Width="1*" />
                             <ColumnDefinition Width="1*" />
                         </Grid.ColumnDefinitions>
-                        <Grid.Resources>
-                            <Style TargetType="{x:Type Border}">
-                                <Setter Property="Margin" Value="5,0" />
-                            </Style>
-                        </Grid.Resources>
                         <Border Grid.Column="0">
                             <StackPanel Orientation="Vertical">
-                                <TextBlock>Sunday</TextBlock>
-                                <TextBlock FontWeight="Bold" Name="SundayTotal" />
+                                <TextBlock><Run Text="Sunday"/></TextBlock>
+                                <TextBlock FontWeight="Bold" x:Name="SundayTotal" />
                             </StackPanel>
                         </Border>
                         <Border Grid.Column="1">
                             <StackPanel Orientation="Vertical">
-                                <TextBlock>Monday</TextBlock>
-                                <TextBlock FontWeight="Bold" Name="MondayTotal" />
+                                <TextBlock><Run Text="Monday"/></TextBlock>
+                                <TextBlock FontWeight="Bold" x:Name="MondayTotal" />
                             </StackPanel>
                         </Border>
                         <Border Grid.Column="2">
                             <StackPanel Orientation="Vertical">
-                                <TextBlock>Tuesday</TextBlock>
-                                <TextBlock FontWeight="Bold" Name="TuesdayTotal" />
+                                <TextBlock><Run Text="Tuesday"/></TextBlock>
+                                <TextBlock FontWeight="Bold" x:Name="TuesdayTotal" />
                             </StackPanel>
                         </Border>
                         <Border Grid.Column="3">
                             <StackPanel Orientation="Vertical">
-                                <TextBlock>Wednesday</TextBlock>
-                                <TextBlock FontWeight="Bold" Name="WednesdayTotal" />
+                                <TextBlock><Run Text="Wednesday"/></TextBlock>
+                                <TextBlock FontWeight="Bold" x:Name="WednesdayTotal" />
                             </StackPanel>
                         </Border>
                         <Border Grid.Column="4">
                             <StackPanel Orientation="Vertical">
-                                <TextBlock>Thursday</TextBlock>
-                                <TextBlock FontWeight="Bold" Name="ThursdayTotal" />
+                                <TextBlock><Run Text="Thursday"/></TextBlock>
+                                <TextBlock FontWeight="Bold" x:Name="ThursdayTotal" />
                             </StackPanel>
                         </Border>
                         <Border Grid.Column="5">
                             <StackPanel Orientation="Vertical">
-                                <TextBlock>Friday</TextBlock>
-                                <TextBlock FontWeight="Bold" Name="FridayTotal" />
+                                <TextBlock><Run Text="Friday"/></TextBlock>
+                                <TextBlock FontWeight="Bold" x:Name="FridayTotal" />
                             </StackPanel>
                         </Border>
                         <Border Grid.Column="6">
                             <StackPanel Orientation="Vertical">
-                                <TextBlock>Saturday</TextBlock>
-                                <TextBlock FontWeight="Bold" Name="SaturdayTotal" />
+                                <TextBlock><Run Text="Saturday"/></TextBlock>
+                                <TextBlock FontWeight="Bold" x:Name="SaturdayTotal" />
                             </StackPanel>
                         </Border>
                     </Grid>
-                    <ListView Grid.Row="2" Margin="5" Name="CurrentCharges" MouseDoubleClick="CurrentChargesDoubleClick" ItemContainerStyle="{DynamicResource CustomListViewItemStyle}" AlternationCount="2" SelectionChanged="ToggleApprovals" />
+                    <ListView Grid.Row="2" Margin="5" x:Name="CurrentCharges" MouseDoubleClick="CurrentChargesDoubleClick" ItemContainerStyle="{DynamicResource CustomListViewItemStyle}" AlternationCount="2" SelectionChanged="ToggleApprovals" />
                 </Grid>
             </Grid>
         </Grid>
