@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Windows;
@@ -310,7 +309,7 @@ namespace Ui
             
             if (time == null) return;
 
-            MessageBox.Show(time.StatusCode);
+            MessageBox.Show(time.WorkComment ?? "<no comment>", "Entered Comment");
         }
 
         private void ResultsKeyPress(object sender, KeyEventArgs e)
