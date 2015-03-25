@@ -17,7 +17,7 @@ namespace EpicorConsole
 {
     public enum TimeStates
     {
-        New, Modified
+        New, Modified, Deleted
     }
 
     public class Epicor
@@ -74,9 +74,7 @@ namespace EpicorConsole
                     case "InternalCode":
                         nn.Data =
                             (InternalCodeData) node.ChildNodes.Cast<XmlNode>().Where(n => n.Name == "Data").Select(
-                                n =>
-                                    new XmlSerializer(typeof (InternalCodeData)).Deserialize(new StringReader(n.OuterXml)))
-                                .First();
+                                n => new XmlSerializer(typeof (InternalCodeData)).Deserialize(new StringReader(n.OuterXml))).First();
                         break;
                     case "Internal":
                     case "Customer":
@@ -153,9 +151,8 @@ namespace EpicorConsole
                 out result);
 
             var s = new XmlSerializer(typeof (Time));
-            return
-                (from XmlNode node in result.ChildNodes select (Time) s.Deserialize(new StringReader(node.OuterXml)))
-                    .ToList();
+            return (from XmlNode node in result.ChildNodes
+                    select (Time) s.Deserialize(new StringReader(node.OuterXml))).ToList();
         }
 
         public void SaveTimes(IEnumerable times, TimeStates state)
@@ -175,6 +172,8 @@ namespace EpicorConsole
                 modifiedTimes = ModifyTimesForNew(times);
             else if (state == TimeStates.Modified)
                 modifiedTimes = ModifyTimesForApproval(times);
+            else if (state == TimeStates.Deleted)
+                modifiedTimes = ModifyTimesForDelete(times);
 
             foreach (var time in modifiedTimes)
             {
@@ -346,6 +345,47 @@ namespace EpicorConsole
                 time.StatusCode = "E";
                 time.Status = "Ready for Approval";
                 time.TimeGUID = string.Empty;
+                time.InvoiceComment = time.InvoiceComment ?? string.Empty;
+                time.StatusComment = time.StatusComment ?? string.Empty;
+                time.WorkComment = time.WorkComment ?? string.Empty;
+                time.TaskName = time.TaskName ?? string.Empty;
+                time.RemoteTimeID = time.RemoteTimeID ?? string.Empty;
+                time.ProjectCustomer = time.ProjectCustomer ?? string.Empty;
+                time.TimeTypeCode = time.TimeTypeCode ?? string.Empty;
+                time.BatchID = time.BatchID ?? string.Empty;
+                time.ProjectName = time.ProjectName ?? string.Empty;
+                time.TransactionIndex = time.TransactionIndex ?? string.Empty;
+                time.EventCode = time.EventCode ?? string.Empty;
+                time.EventStatusCode = time.EventStatusCode ?? string.Empty;
+                time.LocationCode = time.LocationCode ?? string.Empty;
+                time.LocationDesc = time.LocationDesc ?? string.Empty;
+                time.OriginFlag = time.OriginFlag ?? string.Empty;
+                time.Meal = time.Meal ?? string.Empty;
+                time.Travel = time.Travel ?? string.Empty;
+                time.WorkTypeCode = time.WorkTypeCode ?? string.Empty;
+                time.ProjectStatus = time.ProjectStatus ?? string.Empty;
+                time.OpportunityID = time.OpportunityID ?? string.Empty;
+                time.Favorite = time.Favorite ?? string.Empty;
+                time.TimeEntryComment = time.TimeEntryComment ?? string.Empty;
+                time.RemoteProjectCode = time.RemoteProjectCode ?? string.Empty;
+
+                modifiedTimes.Add(time);
+            }
+
+            return modifiedTimes;
+        }
+
+        public List<Time> ModifyTimesForDelete(IEnumerable times)
+        {
+            var modifiedTimes = new List<Time>();
+
+            foreach (Time time in times)
+            {
+                time.action = "deleted";
+                time.StatusCode = "N";
+                time.Status = "Entered";
+                time.TimeGUID = string.Empty;
+                time.AvoidUpdateSite = "0";
                 time.InvoiceComment = time.InvoiceComment ?? string.Empty;
                 time.StatusComment = time.StatusComment ?? string.Empty;
                 time.WorkComment = time.WorkComment ?? string.Empty;

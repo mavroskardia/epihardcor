@@ -106,7 +106,7 @@
                     <RowDefinition Height="30" />
                     <RowDefinition Height="150" />
                     <RowDefinition Height="40*" />
-                    <RowDefinition Height="50" />
+                    <RowDefinition Height="55" />
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Row="0" Orientation="Horizontal">
                     <TextBlock FontSize="14" Margin="5"><Run Text="Selected Task:"/></TextBlock>
@@ -183,7 +183,7 @@
 
                     <TextBlock Margin="5" Grid.Row="1" Grid.Column="0" TextAlignment="Left" VerticalAlignment="Center"
 						Grid.ColumnSpan="7"><Run Text="Comments:"/></TextBlock>
-                    <TextBox x:Name="Comments" Grid.ColumnSpan="7" Grid.Column="0" Grid.Row="2" MinLines="3" />
+                    <TextBox x:Name="Comments" Grid.ColumnSpan="7" Grid.Column="0" Grid.Row="2" MinLines="3" AcceptsReturn="True" />
                     <Button x:Name="Save" Padding="5" Margin="15" Grid.Column="7" Grid.ColumnSpan="2" Grid.Row="2" Click="SaveClick" IsEnabled="False" Content="Save Time"/>
                 </Grid>
                 <Grid Grid.Row="2">
@@ -198,7 +198,7 @@
                                                     <VisualState x:Name="Unselected" />
                                                     <VisualState x:Name="Selected">
                                                         <Storyboard>
-                                                            <ColorAnimationUsingKeyFrames 
+                                                            <ColorAnimationUsingKeyFrames
 																Storyboard.TargetName="CustomBorder"
 																Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)"
 																Duration="0:0:0.25" FillBehavior="HoldEnd">
@@ -293,6 +293,7 @@
                             <ColumnDefinition Width="1*" />
                             <ColumnDefinition Width="1*" />
                             <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="1*" />
                         </Grid.ColumnDefinitions>
                         <Border Grid.Column="0">
                             <StackPanel Orientation="Vertical">
@@ -336,13 +337,20 @@
                                 <TextBlock FontWeight="Bold" x:Name="SaturdayTotal" />
                             </StackPanel>
                         </Border>
+                        <Border Grid.Column="7">
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Foreground="#222222" FontWeight="ExtraBold">Total</TextBlock>
+                                <TextBlock FontWeight="Bold" x:Name="WeekTotal" />
+                            </StackPanel>
+                        </Border>
                     </Grid>
                     <ListView Grid.Row="2" Margin="5" x:Name="CurrentCharges" MouseDoubleClick="CurrentChargesDoubleClick" ItemContainerStyle="{DynamicResource CustomListViewItemStyle}" AlternationCount="2" SelectionChanged="ToggleApprovals" />
                 </Grid>
-                <StackPanel Grid.Row="3" Orientation="Horizontal">
-                    <Button x:Name="Approve" IsEnabled="False" Padding="5" Margin="5" Width="150" Click="ApproveClick" Content="Mark for Approval"/>
-                    <TextBlock x:Name="Messages" />
-                </StackPanel>
+                <DockPanel Grid.Row="3">
+                    <Button x:Name="Approve" IsEnabled="False" Padding="5" Margin="5,5,5,10" Width="150" Click="ApproveClick" Content="Mark for Approval"/>
+                    <TextBlock x:Name="Messages" FontSize="12" Padding="5" Margin="5,0" VerticalAlignment="Center" />
+                    <Button x:Name="Delete" IsEnabled="False" Padding="5" Margin="5,5,5,10" Width="150" Click="DeleteClick" Content="Delete Selected" HorizontalAlignment="Right" />
+                </DockPanel>
             </Grid>
         </Grid>
     </Grid>

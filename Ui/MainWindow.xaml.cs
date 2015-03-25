@@ -58,11 +58,13 @@ namespace Ui
         {
             var epicor = new Epicor();
 
-            if (SelectedNode.NodeType == "Task")
-                return epicor.CreateTaskTime(WeekShown, SelectedNode.Data as TaskData, Comments.Text, dayOfWeek, hours);
-
-            if (SelectedNode.NodeType == "InternalCode")
-                return epicor.CreateInternalCodeTime(WeekShown, SelectedNode, Comments.Text, dayOfWeek, hours);
+            switch (SelectedNode.NodeType)
+            {
+                case "Task":
+                    return epicor.CreateTaskTime(WeekShown, SelectedNode.Data as TaskData, Comments.Text, dayOfWeek, hours);
+                case "InternalCode":
+                    return epicor.CreateInternalCodeTime(WeekShown, SelectedNode, Comments.Text, dayOfWeek, hours);
+            }
 
             MessageBox.Show("No time type for " + SelectedNode.NodeType, "Failed to convert time", MessageBoxButton.OK,
                 MessageBoxImage.Error);
@@ -84,6 +86,7 @@ namespace Ui
                 var from = e.GetStartOfWeek(WeekShown);
                 var to = from.AddDays(6);
                 var totals = Enum.GetNames(typeof (DayOfWeek)).Select(day => new Tuple<string, decimal>(day, charges.Where(c => c.TimeEntryDate.DayOfWeek == ((DayOfWeek) Enum.Parse(typeof (DayOfWeek), day))).Sum(c => c.Hours))).ToList();
+                var weekTotal = 0.0m;
 
                 Dispatcher.BeginInvoke(DispatcherPriority.Background, new ThreadStart(() =>
                 {
@@ -96,6 +99,8 @@ namespace Ui
 
                     foreach (var hours in totals)
                     {
+                        weekTotal += hours.Item2;
+
                         var elt = ((TextBlock)FindName(hours.Item1 + "Total"));
                         if (elt == null) continue;
 
@@ -103,9 +108,14 @@ namespace Ui
                         
                         if (hours.Item1 == DayOfWeek.Sunday.ToString() || hours.Item1 == DayOfWeek.Saturday.ToString())
                             continue;
-                        if (hours.Item2 >= 8) elt.Foreground = new SolidColorBrush(Color.FromRgb(0x00, 0xb3, 0x39));
-                        if (hours.Item2 <= 0) elt.Foreground = new SolidColorBrush(Color.FromRgb(0xb3, 0x39, 0x00));
+                        if (hours.Item2 >= 8m) elt.Foreground = new SolidColorBrush(Color.FromRgb(0x00, 0xb3, 0x39));
+                        if (hours.Item2 <= 0m) elt.Foreground = new SolidColorBrush(Color.FromRgb(0xb3, 0x39, 0x00));
                     }
+
+                    WeekTotal.Text = weekTotal.ToString("F");
+                    WeekTotal.Foreground = weekTotal >= 40m
+                        ? new SolidColorBrush(Color.FromRgb(0x00, 0xb3, 0x39))
+                        : new SolidColorBrush(Color.FromRgb(0xb3, 0x39, 0x00));
                 }));
             };
 
@@ -285,7 +295,6 @@ namespace Ui
 
             var bgWorker = new BackgroundWorker();
             var epicor = new Epicor();
-
             var times = CurrentCharges.SelectedItems.OfType<Time>();
 
             bgWorker.DoWork += (o, args) =>
@@ -305,7 +314,7 @@ namespace Ui
 
         private void CurrentChargesDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var time = (Time) ((ListView) sender).SelectedItem;
+            var time = ((ListView) sender).SelectedItem as Time;
             
             if (time == null) return;
 
@@ -346,6 +355,7 @@ namespace Ui
         private void ToggleApprovals(object sender, RoutedEventArgs e)
         {
             Approve.IsEnabled = CurrentCharges.SelectedItems.OfType<Time>().Any(t => t.StatusCode != "E" && t.StatusCode != "A");
+            Delete.IsEnabled = CurrentCharges.SelectedItems.OfType<Time>().Any(t => t.StatusCode != "A");
         }
 
         private void AdvanceWeek(object sender, RoutedEventArgs e)
@@ -360,6 +370,30 @@ namespace Ui
             WeekShown = WeekShown.AddDays(-7);
             InitializeDates(WeekShown);
             InitializeCurrentCharges();
+        }
+
+        private void DeleteClick(object sender, RoutedEventArgs e)
+        {
+            Delete.IsEnabled = false;
+            if (CurrentCharges.SelectedItems.Count == 0) return;
+
+            var bgWorker = new BackgroundWorker();
+            var epicor = new Epicor();
+            var times = CurrentCharges.SelectedItems.OfType<Time>();
+
+            bgWorker.DoWork += (o, args) =>
+            {
+                epicor.SaveTimes(times, TimeStates.Deleted);
+
+                Dispatcher.BeginInvoke(DispatcherPriority.Background, new ThreadStart(() =>
+                {
+                    Delete.IsEnabled = true;
+                    Messages.Text = "Deleted Successfully";
+                    InitializeCurrentCharges();
+                }));
+            };
+
+            bgWorker.RunWorkerAsync();
         }
     }
 }
