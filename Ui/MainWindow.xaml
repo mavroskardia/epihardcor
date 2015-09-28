@@ -131,7 +131,7 @@
                         <RowDefinition Height="1*" />
                     </Grid.RowDefinitions>
 
-                    <Button Grid.Column="0" FontFamily="/Ui;component/#FontAwesome" Margin="5,0" Click="BackWeek"
+                    <Button Grid.Column="0" FontFamily="/Epicor;component/#FontAwesome" Margin="5,0" Click="BackWeek"
 						FontSize="20" BorderBrush="Transparent" Background="Transparent" Foreground="{StaticResource BlueGradientBrush}" Content="&#xF053;"/>
 
                     <Border Style="{StaticResource DateBorderStyle}" Grid.Row="0" Grid.Column="1">
@@ -179,7 +179,7 @@
                         </StackPanel>
                     </Border>
 
-                    <Button Grid.Row="0" Grid.Column="8" FontFamily="/Ui;component/#FontAwesome" Margin="5,0" Click="AdvanceWeek"
+                    <Button Grid.Row="0" Grid.Column="8" FontFamily="/Epicor;component/#FontAwesome" Margin="5,0" Click="AdvanceWeek"
 						FontSize="20" BorderBrush="Transparent" Background="Transparent" Foreground="{StaticResource BlueGradientBrush}" Content="&#xF054;"/>
 
                     <TextBlock Margin="5" Grid.Row="1" Grid.Column="0" TextAlignment="Left" VerticalAlignment="Center"
@@ -219,7 +219,7 @@
                                                     <Border Grid.Column="0" Margin="5,3,5,5" CornerRadius="5" Background="{StaticResource BlueGradientBrush}">
                                                         <TextBlock FontWeight="Bold" HorizontalAlignment="Center" Foreground="White" TextWrapping="Wrap" Text="{Binding ShortDate}" />
                                                     </Border>
-                                                    <TextBlock Grid.Column="1" Margin="5,0" VerticalAlignment="Center" FontSize="18" Text="{Binding StatusIcon}" FontFamily="/Ui;component/#FontAwesome" ToolTip="A flag indicates this charge is marked for approval, a checkmark indicates it is approved.">
+                                                    <TextBlock Grid.Column="1" Margin="5,0" VerticalAlignment="Center" FontSize="18" Text="{Binding StatusIcon}" FontFamily="/Epicor;component/#FontAwesome" ToolTip="A flag indicates this charge is marked for approval, a checkmark indicates it is approved.">
                                                         <TextBlock.Style>
                                                             <Style TargetType="{x:Type TextBlock}">
                                                                 <Style.Triggers>
