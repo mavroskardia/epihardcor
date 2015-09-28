@@ -36,14 +36,14 @@ namespace Ui
         {
             if (!string.IsNullOrWhiteSpace(Settings.Default.ResourceID)) return;
 
-            Settings.Default.ResourceID = new Epicor().GetResourceId();
+            Settings.Default.ResourceID = new Epicor(null).ResourceId;
             Settings.Default.Save();
         }
 
         private void InitializeDates(DateTime week)
         {
             WeekShown = week;
-            var sunday = new Epicor().GetStartOfWeek(WeekShown);
+            var sunday = new Epicor(Settings.Default.ResourceID).GetStartOfWeek(WeekShown);
             SundayLabel.Text = "Sun " + sunday.ToString("MM/dd");
             MondayLabel.Text = "Mon " + sunday.AddDays(1).ToString("MM/dd");
             TuesdayLabel.Text = "Tue " + sunday.AddDays(2).ToString("MM/dd");
@@ -66,7 +66,7 @@ namespace Ui
 
         private Time ConvertToTime(string dayOfWeek, decimal hours)
         {
-            var epicor = new Epicor();
+            var epicor = new Epicor(Settings.Default.ResourceID);
 
             switch (SelectedNode.NodeType)
             {
@@ -91,8 +91,8 @@ namespace Ui
 
             bgWorker.DoWork += (sender, args) =>
             {
-                var e = new Epicor();
-                var charges = e.GetCurrentCharges(WeekShown, Settings.Default.ResourceID);
+                var e = new Epicor(Settings.Default.ResourceID);
+                var charges = e.GetCurrentCharges(WeekShown);
                 var from = e.GetStartOfWeek(WeekShown);
                 var to = from.AddDays(6);
                 var totals = Enum.GetNames(typeof (DayOfWeek)).Select(day => new Tuple<string, decimal>(day, charges.Where(c => c.TimeEntryDate.DayOfWeek == ((DayOfWeek) Enum.Parse(typeof (DayOfWeek), day))).Sum(c => c.Hours))).ToList();
@@ -148,7 +148,7 @@ namespace Ui
                 if (dt.Days >= 3 || overrideCache)
                 {
                     message = "Retrieved from Epicor. Codes will become stale in 3 days.";
-                    tree = new Epicor().GetSiteActivities(Settings.Default.ResourceID);
+                    tree = new Epicor(Settings.Default.ResourceID).GetSiteActivities();
                     CacheTree(tree);
                 }
                 else
@@ -284,15 +284,24 @@ namespace Ui
 
             bgWorker.DoWork += (o, args) =>
             {
-                new Epicor().SaveTimes(times, TimeStates.New);
-
-                Dispatcher.BeginInvoke(DispatcherPriority.Background, new ThreadStart(() =>
+                try
+                {
+                    new Epicor(Settings.Default.ResourceID).SaveTimes(times, TimeStates.New);
+                    Dispatcher.BeginInvoke(DispatcherPriority.Background, new ThreadStart(() =>
+                    {
+                        InitializeCurrentCharges();
+                        ClearEntries();
+                        Messages.Text = "Saved Successfully";
+                    }));
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                finally
                 {
                     Save.IsEnabled = true;
-                    Messages.Text = "Saved Successfully";
-                    InitializeCurrentCharges();
-                    ClearEntries();
-                }));
+                }
             };
 
             bgWorker.RunWorkerAsync();
@@ -304,7 +313,7 @@ namespace Ui
             if (CurrentCharges.SelectedItems.Count == 0) return;
 
             var bgWorker = new BackgroundWorker();
-            var epicor = new Epicor();
+            var epicor = new Epicor(Settings.Default.ResourceID);
             var times = CurrentCharges.SelectedItems.OfType<Time>();
 
             bgWorker.DoWork += (o, args) =>
@@ -391,7 +400,7 @@ namespace Ui
             if (CurrentCharges.SelectedItems.Count == 0) return;
 
             var bgWorker = new BackgroundWorker();
-            var epicor = new Epicor();
+            var epicor = new Epicor(Settings.Default.ResourceID);
             var times = CurrentCharges.SelectedItems.OfType<Time>();
 
             bgWorker.DoWork += (o, args) =>
