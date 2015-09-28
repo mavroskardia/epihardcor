@@ -8,12 +8,12 @@
             <RowDefinition Height="1*" />
             <RowDefinition Height="50" />
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" TextWrapping="WrapWithOverflow" Padding="20" LineHeight="2" TextAlignment="Center">
-            Deal with Epicor in a less painful way.
+        <TextBlock Grid.Row="0" TextWrapping="WrapWithOverflow" Padding="20" LineHeight="2" VerticalAlignment="Center" TextAlignment="Center">
+            Epicor timekeeping with time allocation caching.
         </TextBlock>
         <TextBlock Grid.Row="1" Padding="20" TextAlignment="Center">
-            ©2014
+            ©2014-2015 Info Tech, Inc.
         </TextBlock>
-        <Button Grid.Row="2" Margin="10" Name="AboutDismiss" Click="AboutDismiss_OnClick">Dismiss</Button>
+        <Button HorizontalAlignment="Center" Width="100"  Grid.Row="2" Margin="10" Name="AboutDismiss" Click="AboutDismiss_OnClick">Dismiss</Button>
     </Grid>
 </Window>

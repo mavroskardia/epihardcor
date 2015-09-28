@@ -41,10 +41,12 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Epicor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service References\HelperService\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -66,6 +68,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Utils\Activity.cs" />
+    <Compile Include="Utils\NavigatorNode.cs" />
+    <Compile Include="Utils\Time.cs" />
+    <Compile Include="Utils\Tree.cs" />
+    <Compile Include="Utils\TreeSerializer.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

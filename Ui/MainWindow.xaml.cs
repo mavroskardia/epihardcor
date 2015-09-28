@@ -1,5 +1,4 @@
-﻿using EpicorConsole;
-using EpicorConsole.Utils;
+﻿using EpicorConsole.Utils;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,6 +10,8 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
+using EpicorLibrary;
+using EpicorLibrary.Utils;
 using Ui.Properties;
 
 namespace Ui
@@ -25,9 +26,18 @@ namespace Ui
         public MainWindow()
         {
             InitializeComponent();
+            InitializeSettings();
             InitializeCodes();
             InitializeDates(DateTime.Today);
             InitializeCurrentCharges();
+        }
+
+        private void InitializeSettings()
+        {
+            if (!string.IsNullOrWhiteSpace(Settings.Default.ResourceID)) return;
+
+            Settings.Default.ResourceID = new Epicor().GetResourceId();
+            Settings.Default.Save();
         }
 
         private void InitializeDates(DateTime week)
@@ -82,7 +92,7 @@ namespace Ui
             bgWorker.DoWork += (sender, args) =>
             {
                 var e = new Epicor();
-                var charges = e.GetCurrentCharges(WeekShown);
+                var charges = e.GetCurrentCharges(WeekShown, Settings.Default.ResourceID);
                 var from = e.GetStartOfWeek(WeekShown);
                 var to = from.AddDays(6);
                 var totals = Enum.GetNames(typeof (DayOfWeek)).Select(day => new Tuple<string, decimal>(day, charges.Where(c => c.TimeEntryDate.DayOfWeek == ((DayOfWeek) Enum.Parse(typeof (DayOfWeek), day))).Sum(c => c.Hours))).ToList();
@@ -138,7 +148,7 @@ namespace Ui
                 if (dt.Days >= 3 || overrideCache)
                 {
                     message = "Retrieved from Epicor. Codes will become stale in 3 days.";
-                    tree = new Epicor().GetSiteActivities();
+                    tree = new Epicor().GetSiteActivities(Settings.Default.ResourceID);
                     CacheTree(tree);
                 }
                 else
@@ -374,6 +384,9 @@ namespace Ui
 
         private void DeleteClick(object sender, RoutedEventArgs e)
         {
+            var messageBoxResult = MessageBox.Show("Are you sure you want to delete the selected entries?", "Delete Confirmation", MessageBoxButton.YesNo);
+            if (messageBoxResult != MessageBoxResult.Yes) return;
+
             Delete.IsEnabled = false;
             if (CurrentCharges.SelectedItems.Count == 0) return;
 
@@ -394,6 +407,11 @@ namespace Ui
             };
 
             bgWorker.RunWorkerAsync();
+        }
+
+        private void ShowSettings(object sender, RoutedEventArgs e)
+        {
+            new SettingsWindow().Show();
         }
     }
 }

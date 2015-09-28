@@ -1,7 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using EpicorConsole.Utils;
+using EpicorLibrary;
+using EpicorLibrary.Utils;
 
 namespace EpicorConsole
 {
@@ -21,7 +22,8 @@ namespace EpicorConsole
                     break;
                 case 2:
                 {
-                    var charges = new Epicor().GetCurrentCharges(DateTime.Today);
+                    var epicor = new Epicor();
+                    var charges = epicor.GetCurrentCharges(DateTime.Today, epicor.GetResourceId());
                     foreach (var charge in charges)
                     {
                         Console.WriteLine(charge);
@@ -31,7 +33,7 @@ namespace EpicorConsole
                 default:
                 {
                     var epicor = new Epicor();
-                    var rootActivity = epicor.GetSiteActivities();
+                    var rootActivity = epicor.GetSiteActivities(epicor.GetResourceId());
                     var json = new TreeSerializer<NavigatorNode>().Serialize(rootActivity);
                     Console.WriteLine(json);
                 }
