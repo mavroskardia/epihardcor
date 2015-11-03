@@ -32,6 +32,9 @@
                 <Separator />
                 <MenuItem x:Name="ExitMenuItem" Header="E_xit" Click="ExitMenuItem_OnClick" />
             </MenuItem>
+            <MenuItem Header="_Data">
+                <MenuItem x:Name="MonthlyTotals" Header="Monthly Totals" Click="MonthlyTotals_OnClick" />
+            </MenuItem>
             <MenuItem Header="_Help">
                 <MenuItem x:Name="AboutMenuItem" Header="_About" Click="AboutMenuItem_OnClick"/>
             </MenuItem>
@@ -66,40 +69,57 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="300*" MinWidth="700" />
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" x:Name="LoadingMessage" Visibility="Visible" Foreground="CornflowerBlue"
-				FontStyle="Italic" TextAlignment="Right" VerticalAlignment="Top" Padding="10,5,10,10"><Run Text="Loading Charge Codes..."/></TextBlock>
-            <TabControl Grid.Column="0" Height="Auto">
-                <TabItem>
-                    <TabItem.Header>
-                        <TextBlock Text="List" />
-                    </TabItem.Header>
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="45" />
-                            <RowDefinition Height="1*" />
-                        </Grid.RowDefinitions>
-                        <StackPanel Orientation="Vertical" Grid.Row="0">
-                            <TextBlock TextAlignment="Left" Text="Search" />
-                            <TextBox x:Name="Search" KeyDown="SearchKeyPress" />
-                        </StackPanel>
-                        <ListView x:Name="Results" KeyDown="ResultsKeyPress" Grid.Row="1">
-                            <ListView.View>
-                                <GridView>
-                                    <GridViewColumn DisplayMemberBinding="{Binding Data.ProjectCode}"
-										Header="Code" />
-                                    <GridViewColumn DisplayMemberBinding="{Binding Caption}" Header="Task" />
-                                </GridView>
-                            </ListView.View>
-                        </ListView>
-                    </Grid>
-                </TabItem>
-                <TabItem>
-                    <TabItem.Header>
-                        <TextBlock Text="Tree" />
-                    </TabItem.Header>
-                    <TreeView x:Name="EpicorTree" />
-                </TabItem>
-            </TabControl>
+            <Grid Grid.Column="0" Name="LoadingMessage" Visibility="Visible">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="1" x:Name="LoadingMessageText" Foreground="CornflowerBlue" FontSize="16"
+				    FontStyle="Italic" TextAlignment="Right" HorizontalAlignment="Center"  VerticalAlignment="Center" Padding="10,5,10,10"><Run Text="Loading Charge Codes..."/></TextBlock>
+                <ProgressBar Grid.Row="2" Name="LoadingMessagePb" Margin="20,10" IsIndeterminate="True" />
+            </Grid>
+            <Grid Grid.Column="0" Name="TabContainer" Visibility="Hidden">
+                <TextBlock Name="CacheMessage" VerticalAlignment="Top" HorizontalAlignment="Right" Padding="6">Retrieved from Epicor. Codes will become stale in 3 days.</TextBlock>
+                <TabControl Height="Auto">
+                    <TabItem>
+                        <TabItem.Header>
+                            <TextBlock Text="List" FontSize="14" />
+                        </TabItem.Header>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="45" />
+                                <RowDefinition Height="1*" />
+                            </Grid.RowDefinitions>
+                            <StackPanel Orientation="Vertical" Grid.Row="0">
+                                <TextBlock TextAlignment="Left" Text="Search" />
+                                <TextBox x:Name="Search" KeyDown="SearchKeyPress" />
+                            </StackPanel>
+                            <ListView x:Name="Results" KeyDown="ResultsKeyPress" Grid.Row="1">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn DisplayMemberBinding="{Binding Data.ProjectCode}">
+                                            <GridViewColumn.Header><TextBlock Text="Code" FontSize="14" /></GridViewColumn.Header>
+                                        </GridViewColumn>
+                                        <GridViewColumn DisplayMemberBinding="{Binding Caption}">
+                                            <GridViewColumn.Header>
+                                                <TextBlock Text="Task" FontSize="14" />
+                                            </GridViewColumn.Header>
+                                        </GridViewColumn>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </Grid>
+                    </TabItem>
+                    <TabItem>
+                        <TabItem.Header>
+                            <TextBlock Text="Tree" FontSize="12" />
+                        </TabItem.Header>
+                        <TreeView x:Name="EpicorTree" />
+                    </TabItem>
+                </TabControl>
+            </Grid>
             <GridSplitter Grid.Column="1" HorizontalAlignment="Center" BorderBrush="Bisque" VerticalAlignment="Stretch"
 				Width="5" />
             <Grid Grid.Column="2">

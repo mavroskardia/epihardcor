@@ -137,7 +137,7 @@ namespace Ui
             var bgWorker = new BackgroundWorker();
 
             EpicorTree.Items.Clear();
-            LoadingMessage.Text = "Loading codes...";
+            LoadingMessageText.Text = "Loading codes from Epicor...";
 
             bgWorker.DoWork += (sender, args) =>
             {
@@ -160,9 +160,9 @@ namespace Ui
                 Dispatcher.BeginInvoke(DispatcherPriority.Background, new ThreadStart(() =>
                 {
                     BuildChargeCodeTree(tree);
-                    LoadingMessage.Text = message;
-                    LoadingMessage.Foreground = new SolidColorBrush(Color.FromRgb(0x88, 0x88, 0x88));
-                    LoadingMessage.FontStyle = FontStyles.Normal;
+                    CacheMessage.Text = message;
+                    LoadingMessage.Visibility = Visibility.Hidden;
+                    TabContainer.Visibility = Visibility.Visible;
                 }));
             };
 
@@ -267,9 +267,9 @@ namespace Ui
 
         private void SearchKeyPress(object sender, KeyEventArgs e)
         {
-            if (e.Key != Key.Enter || Results.Items.Count != 1) return;
-
+            if (e.Key != Key.Enter) return;
             SelectNode(Results.Items[0] as NavigatorNode);
+
             Monday.Focus();
         }
 
@@ -421,6 +421,11 @@ namespace Ui
         private void ShowSettings(object sender, RoutedEventArgs e)
         {
             new SettingsWindow().Show();
+        }
+
+        private void MonthlyTotals_OnClick(object sender, RoutedEventArgs e)
+        {
+            new TotalsWindow(WeekShown).Show();
         }
     }
 }

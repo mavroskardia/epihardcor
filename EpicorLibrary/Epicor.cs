@@ -147,19 +147,24 @@ namespace EpicorLibrary
             return deepestMatch;
         }
 
-        public List<Time> GetCurrentCharges(DateTime date)
+        public List<Time> GetChargesBetween(DateTime fromDate, DateTime toDate)
         {
             var client = new TimeWSSoapClient();
-            var fromDate = GetStartOfWeek(date);
-            var toDate = fromDate.AddDays(6);
 
             XmlNode result;
             client.GetAllTimeEntries(new ICERequestHeader(), ResourceId, fromDate, toDate, fromDate, toDate,
                 out result);
 
-            var s = new XmlSerializer(typeof (Time));
+            var s = new XmlSerializer(typeof(Time));
             return (from XmlNode node in result.ChildNodes
-                    select (Time) s.Deserialize(new StringReader(node.OuterXml))).ToList();
+                    select (Time)s.Deserialize(new StringReader(node.OuterXml))).ToList();
+        }
+
+        public List<Time> GetCurrentCharges(DateTime date)
+        {
+            var fromDate = GetStartOfWeek(date);
+            var toDate = fromDate.AddDays(6);
+            return GetChargesBetween(fromDate, toDate);
         }
 
         public void SaveTimes(IEnumerable times, TimeStates state)

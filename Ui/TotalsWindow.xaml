@@ -1,0 +1,15 @@
+﻿<Window x:Class="Ui.TotalsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Totals" Height="150" Width="400">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Name="TotalHoursLabel" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Italic>Retrieving monthly totals...</Italic>            
+        </TextBlock>
+        <Button Margin="10" Grid.Row="1" Name="OK" Content="_OK" Click="OK_OnClick"  HorizontalAlignment="Right" Width="75" />
+    </Grid>
+</Window>
