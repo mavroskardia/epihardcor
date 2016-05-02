@@ -10,7 +10,7 @@
             <RowDefinition Height="50" />
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" TextWrapping="WrapWithOverflow" Padding="20" LineHeight="2" VerticalAlignment="Center" TextAlignment="Center" FontSize="16">
-            Epicor Timekeeping Client <Bold>v.1.1</Bold>
+            Epicor Timekeeping Client <Bold>v.1.2.0</Bold>
         </TextBlock>
         <TextBlock Grid.Row="1" TextAlignment="Center" VerticalAlignment="Center">
             Check for new versions on

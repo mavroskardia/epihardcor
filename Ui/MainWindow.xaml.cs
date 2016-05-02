@@ -22,6 +22,8 @@ namespace Ui
         public ObservableCollection<NavigatorNode> SearchResults { get; set; }
         public NavigatorNode SelectedNode { get; set; }
         public DateTime WeekShown { get; set; }
+        public Timer CodeTimer { get; set; }
+        public Timer MessageUpdater { get; set; }
 
         public MainWindow()
         {
@@ -30,6 +32,19 @@ namespace Ui
             InitializeCodes();
             InitializeDates(DateTime.Today);
             InitializeCurrentCharges();
+
+            var nextUpdate = Settings.Default.LastUpdateCodesDate.AddDays(3) - DateTime.Now;
+            var delta = Math.Max(0, nextUpdate.Milliseconds);
+            
+            CodeTimer = new Timer(state => {
+                Dispatcher.BeginInvoke(DispatcherPriority.Background, new ThreadStart(() => RefreshCodesFromEpicor(null, null)));
+            }, null, delta, -1);
+
+            MessageUpdater = new Timer(state =>
+            {
+                Dispatcher.BeginInvoke(DispatcherPriority.Background,
+                    new ThreadStart(() => CacheMessage.Text = string.Format("Using cached codes. Codes will become stale in {0} days.", nextUpdate.Days)));
+            }, null, new TimeSpan(1).Milliseconds, -1);
         }
 
         private void InitializeSettings()
@@ -138,6 +153,8 @@ namespace Ui
 
             EpicorTree.Items.Clear();
             LoadingMessageText.Text = "Loading codes from Epicor...";
+            LoadingMessage.Visibility = Visibility.Visible;
+            TabContainer.Visibility = Visibility.Hidden;
 
             bgWorker.DoWork += (sender, args) =>
             {
@@ -211,9 +228,7 @@ namespace Ui
                             break;
                         case "Task":
                         {
-                            var taskData = node.Data.Data as TaskData;
-                            
-                            if (taskData != null && (taskData.Enabled && taskData.TaskName.ToUpper().Contains(Search.Text.ToUpper())))
+                            if (IsTaskMatch(node.Data.Data as TaskData))
                                 matches.Add(node.Data);
                         }
                             break;
@@ -225,6 +240,15 @@ namespace Ui
                 foreach (var match in matches)
                     SearchResults.Add(match);
             };
+        }
+
+        private bool IsTaskMatch(TaskData taskData)
+        {
+            if (taskData == null) return false;
+
+            return taskData.Enabled && (
+                    taskData.TaskName.ToUpper().Contains(Search.Text.ToUpper()) ||
+                    taskData.ProjectCode.ToUpper().Contains(Search.Text.ToUpper()));
         }
 
         private void SelectNodeFromTree(object sender, EventArgs args)
@@ -267,7 +291,8 @@ namespace Ui
 
         private void SearchKeyPress(object sender, KeyEventArgs e)
         {
-            if (e.Key != Key.Enter) return;
+            if (e.Key != Key.Enter || Results.Items.Count == 0) return;
+
             SelectNode(Results.Items[0] as NavigatorNode);
 
             Monday.Focus();
