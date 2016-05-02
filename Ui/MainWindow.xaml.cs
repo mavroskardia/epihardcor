@@ -25,6 +25,8 @@ namespace Ui
         public Timer CodeTimer { get; set; }
         public Timer MessageUpdater { get; set; }
 
+        private bool retrievingCodes;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -32,19 +34,6 @@ namespace Ui
             InitializeCodes();
             InitializeDates(DateTime.Today);
             InitializeCurrentCharges();
-
-            var nextUpdate = Settings.Default.LastUpdateCodesDate.AddDays(3) - DateTime.Now;
-            var delta = Math.Max(0, nextUpdate.Milliseconds);
-            
-            CodeTimer = new Timer(state => {
-                Dispatcher.BeginInvoke(DispatcherPriority.Background, new ThreadStart(() => RefreshCodesFromEpicor(null, null)));
-            }, null, delta, -1);
-
-            MessageUpdater = new Timer(state =>
-            {
-                Dispatcher.BeginInvoke(DispatcherPriority.Background,
-                    new ThreadStart(() => CacheMessage.Text = string.Format("Using cached codes. Codes will become stale in {0} days.", nextUpdate.Days)));
-            }, null, new TimeSpan(1).Milliseconds, -1);
         }
 
         private void InitializeSettings()
@@ -149,6 +138,9 @@ namespace Ui
 
         private void InitializeCodes(bool overrideCache=false)
         {
+            if (retrievingCodes) return;
+            retrievingCodes = true;
+
             var bgWorker = new BackgroundWorker();
 
             EpicorTree.Items.Clear();
@@ -180,6 +172,7 @@ namespace Ui
                     CacheMessage.Text = message;
                     LoadingMessage.Visibility = Visibility.Hidden;
                     TabContainer.Visibility = Visibility.Visible;
+                    retrievingCodes = false;
                 }));
             };
 
