@@ -32,25 +32,14 @@ namespace EpicorLibrary
 
         private string GetResourceIdFromEpicor()
         {
-            var client = new TimeWSSoapClient();
-            string loginId;
+            string userId;
+            var systemSecurityClient = new SystemSecurityService.SysSecurityWSSoapClient();
+            systemSecurityClient.GetUserId(new SystemSecurityService.ICERequestHeader(), out userId);
+
             string resourceId;
-            string siteURN;
-            int firstDOW;
-            DateTime sqlDate;
-            XmlNode xmlResource;
-            XmlNode xmlResource2;
-            XmlNode xmlResource3;
-            client.GetTimeOnLoadData(new ICERequestHeader(),
-                string.Empty,
-                out loginId,
-                out resourceId,
-                out siteURN,
-                out firstDOW,
-                out sqlDate,
-                out xmlResource,
-                out xmlResource2,
-                out xmlResource3);
+            var resourceClient = new ResourceService.ResourceWSSoapClient();
+            resourceClient.GetResourceIDForUserID(new ResourceService.ICERequestHeader(), userId, out resourceId);
+
             return resourceId;
         }
 
