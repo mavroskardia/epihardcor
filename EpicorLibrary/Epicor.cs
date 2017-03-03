@@ -25,10 +25,23 @@ namespace EpicorLibrary
     {
         public Epicor(string resourceId)
         {
-            ResourceId = string.IsNullOrEmpty(resourceId) ? GetResourceId() : resourceId;
+            ResourceId = string.IsNullOrEmpty(resourceId) ? GetResourceIdFromEpicor() : resourceId;
         }
 
         public string ResourceId { get; set; }
+
+        private string GetResourceIdFromEpicor()
+        {
+            string userId;
+            var systemSecurityClient = new SystemSecurityService.SysSecurityWSSoapClient();
+            systemSecurityClient.GetUserId(new SystemSecurityService.ICERequestHeader(), out userId);
+
+            string resourceId;
+            var resourceClient = new ResourceService.ResourceWSSoapClient();
+            resourceClient.GetResourceIDForUserID(new ResourceService.ICERequestHeader(), userId, out resourceId);
+
+            return resourceId;
+        }
 
         public List<Activity> GetInternalActivities()
         {
@@ -97,16 +110,6 @@ namespace EpicorLibrary
             var activitiesRoot = TranslateNodesIntoActivityTree(nodes);
 
             return activitiesRoot;
-        }
-
-        public string GetResourceId()
-        {
-            var windowsIdentity = WindowsIdentity.GetCurrent();
-            
-            if (windowsIdentity != null)
-                return windowsIdentity.Name.Split('\\').Last().ToUpper();
-            
-            throw new Exception("Could not determine user identity");
         }
 
         public DateTime GetStartOfWeek(DateTime now)
